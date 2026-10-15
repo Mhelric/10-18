@@ -1,23 +1,38 @@
-import { useState, useRef } from "react";
+import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-export default function MusicPlayer({ audioSrc }) {
+const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
 
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
+  const playAudio = () => {
+    if (audioRef.current) {
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch((err) => {
-        console.error("Playback failed:", err);
+        console.error("Audio playback error:", err);
       });
+    }
+  };
+
+  const pauseAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    play: playAudio,
+    pause: pauseAudio,
+  }));
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      pauseAudio();
+    } else {
+      playAudio();
     }
   };
 
@@ -41,4 +56,6 @@ export default function MusicPlayer({ audioSrc }) {
       </motion.button>
     </div>
   );
-}
+});
+
+export default MusicPlayer;
