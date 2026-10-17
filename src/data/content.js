@@ -543,7 +543,7 @@ export const finale = {
 export const content = {
   meta: {
     anniversaryDate: "2025-10-18",
-    targetUnlockDate: "2026-10-17T21:39:00+08:00", // Exactly 21:39 Manila time
+    targetUnlockDate: "2026-10-18T21:39:00+08:00", // Exactly 21:39 Manila time
     herName: "Jaira",
     herNickname: "Loveyyy",
     hisName: "Mhel",
