@@ -52,6 +52,24 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
     const secret = (gateData.password || gateData.secretWord || "").trim().toLowerCase();
 
     if (cleanedInput === secret) {
+      // 1. Immediately dismiss the mobile keyboard
+      if (document.activeElement && typeof document.activeElement.blur === "function") {
+        document.activeElement.blur();
+      }
+
+      // 2. Instantly snap viewport to the top so Chapter 1 cannot peek through
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(0, 0);
+      document.documentElement.style.scrollBehavior = "";
+
+      // 3. Re-snap in case the keyboard dismissal animation tries to alter scroll offset
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 80);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 300);
+
       setErrorState({ active: false, message: "" });
       setIsUnlocked(true);
 
