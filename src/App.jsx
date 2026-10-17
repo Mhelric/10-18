@@ -9,6 +9,7 @@ import MemoriesChapter from "./components/chapters/MemoriesChapter";
 import WallChapter from "./components/chapters/WallChapter";
 import SongChapter from "./components/chapters/SongChapter";
 import JokesChapter from "./components/chapters/JokesChapter";
+import ReasonsChapter from "./components/chapters/ReasonsChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
 
 export default function App() {
@@ -31,6 +32,11 @@ export default function App() {
       musicPlayerRef.current.fadeIn(800);
     }
   };
+
+  // Find letter chapter by id rather than a hardcoded index
+  const letterData =
+    content.chapters.find((c) => c.id === "letter") ||
+    content.chapters[content.chapters.length - 1];
 
   return (
     <div className="relative min-h-screen bg-cream overflow-x-hidden selection:bg-blush selection:text-burgundy">
@@ -67,7 +73,13 @@ export default function App() {
           jokesData={content.insideJokes}
           metaData={content.jokesMeta}
         />
-        <LetterChapter data={content.chapters[6]} />
+        <ReasonsChapter
+          reasonsData={content.reasons}
+          finaleText={content.reasonsFinale}
+          loveNotes={content.loveNotes}
+          metaData={content.reasonsMeta}
+        />
+        <LetterChapter data={letterData} />
       </main>
     </div>
   );

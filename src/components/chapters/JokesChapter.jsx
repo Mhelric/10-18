@@ -126,17 +126,18 @@ export default function JokesChapter({ jokesData, metaData }) {
       </div>
 
       {/* Gentle Scroll Indicator to Letter Chapter */}
+      {/* Gentle Scroll Indicator to Reasons Chapter */}
       <div className="w-full flex flex-col items-center text-center pt-4 pb-safe">
         <button
           type="button"
           onClick={() => {
-            const next = document.getElementById("letter");
+            const next = document.getElementById("reasons") || document.getElementById("letter");
             if (next) next.scrollIntoView({ behavior: "smooth" });
           }}
           className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
         >
           <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">
-            to the letter
+            to the reasons jar
           </span>
           <svg
             className="w-4 h-4 mt-1 group-hover:translate-y-0.5 transition-transform"
