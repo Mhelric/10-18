@@ -19,7 +19,7 @@ export default function App() {
   
   // Set to true so you can scroll and test everything immediately.
   // Set back to false right before you send her the link!
-  const [isUnlocked, setIsUnlocked] = useState(true);
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   const handleGateUnlock = () => {
     setIsUnlocked(true);
@@ -60,7 +60,13 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-cream selection:bg-blush selection:text-burgundy">
+    <div
+      className={`bg-cream selection:bg-blush selection:text-burgundy ${
+        isUnlocked
+          ? "relative min-h-screen overflow-x-hidden"
+          : "fixed inset-0 h-[100dvh] overflow-hidden"
+      }`}
+    >
       <BackgroundAmbience />
       <MusicPlayer ref={musicPlayerRef} audioSrc={content.meta.audioTrack} />
 
@@ -73,48 +79,16 @@ export default function App() {
 
         {isUnlocked && (
           <>
-            <PrologueChapter
-              data={content.chapters[0]}
-              prologueData={content.prologue}
-            />
+            <PrologueChapter data={content.chapters[0]} prologueData={content.prologue} />
             <ChatChapter chatData={content.firstChat} />
-            <MemoriesChapter
-              timelineData={content.timeline}
-              metaData={content.timelineMeta}
-            />
-            <WallChapter
-              wallData={content.wall}
-              metaData={content.wallMeta}
-            />
-            <SongChapter
-              songData={content.song}
-              metaData={content.songMeta}
-              onVideoPlay={handleVideoPlay}
-              onVideoPause={handleVideoPause}
-            />
-            <JokesChapter
-              jokesData={content.insideJokes}
-              metaData={content.jokesMeta}
-            />
-            <ReasonsChapter
-              reasonsData={content.reasons}
-              finaleText={content.reasonsFinale}
-              loveNotes={content.loveNotes}
-              metaData={content.reasonsMeta}
-            />
-            <LetterChapter
-              letterData={content.letter}
-              onVoicePlay={handleVoicePlay}
-              onVoicePause={handleVoicePause}
-            />
-            <OpenWhenChapter
-              openWhenData={content.openWhen}
-              metaData={content.openWhenMeta}
-            />
-            <FinaleChapter
-              finaleData={content.finale}
-              onReset={handleScrollToPrologue}
-            />
+            <MemoriesChapter timelineData={content.timeline} metaData={content.timelineMeta} />
+            <WallChapter wallData={content.wall} metaData={content.wallMeta} />
+            <SongChapter songData={content.song} metaData={content.songMeta} onVideoPlay={handleVideoPlay} onVideoPause={handleVideoPause} />
+            <JokesChapter jokesData={content.insideJokes} metaData={content.jokesMeta} />
+            <ReasonsChapter reasonsData={content.reasons} finaleText={content.reasonsFinale} loveNotes={content.loveNotes} metaData={content.reasonsMeta} />
+            <LetterChapter letterData={content.letter} onVoicePlay={handleVoicePlay} onVoicePause={handleVoicePause} />
+            <OpenWhenChapter openWhenData={content.openWhen} metaData={content.openWhenMeta} />
+            <FinaleChapter finaleData={content.finale} onReset={handleScrollToPrologue} />
           </>
         )}
       </main>
