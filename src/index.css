@@ -37,13 +37,17 @@
   transform: translateZ(0);
 }
 
-/* Hide scrollbar utility across Chrome, Safari, Firefox, Edge */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* Cleanly hide scrollbars across all modern browsers */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 
 /* GPU promotion for complex 3D flips */

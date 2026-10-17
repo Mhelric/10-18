@@ -10,16 +10,11 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
   const playAudio = () => {
     if (audioRef.current) {
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-      // Set default normal playback volume to 75%
       audioRef.current.volume = 0.75;
       audioRef.current
         .play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch((err) => {
-          console.error("Audio playback error:", err);
-        });
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.error("Audio playback error:", err));
     }
   };
 
@@ -31,56 +26,49 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
     }
   };
 
-  const fadeOut = (duration = 600) => {
+  // Ducks background volume down to 12% without pausing
+  const duckVolume = (targetVolume = 0.12, duration = 600) => {
     if (!audioRef.current) return;
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+
     const audio = audioRef.current;
     const step = 0.05;
-    const intervalTime = duration / (audio.volume / step || 10);
+    const intervalTime = Math.max(20, duration / ((audio.volume - targetVolume) / step || 10));
 
     fadeIntervalRef.current = setInterval(() => {
-      if (audio.volume > step) {
-        audio.volume = Math.max(0, audio.volume - step);
+      if (audio.volume > targetVolume + step) {
+        audio.volume = Math.max(targetVolume, audio.volume - step);
       } else {
-        audio.volume = 0;
-        audio.pause();
+        audio.volume = targetVolume;
         clearInterval(fadeIntervalRef.current);
       }
-    }, Math.max(20, intervalTime));
+    }, intervalTime);
   };
 
-  const fadeIn = (duration = 800) => {
+  // Restores background volume back up to 75%
+  const unduckVolume = (targetVolume = 0.75, duration = 700) => {
     if (!audioRef.current) return;
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-    const audio = audioRef.current;
-    audio.volume = 0;
-    audio
-      .play()
-      .then(() => {
-        setIsPlaying(true);
-        const step = 0.05;
-        const targetVolume = 0.75;
-        const intervalTime = duration / (targetVolume / step);
 
-        fadeIntervalRef.current = setInterval(() => {
-          if (audio.volume < targetVolume - step) {
-            audio.volume = Math.min(targetVolume, audio.volume + step);
-          } else {
-            audio.volume = targetVolume;
-            clearInterval(fadeIntervalRef.current);
-          }
-        }, Math.max(20, intervalTime));
-      })
-      .catch((err) => {
-        console.error("Audio resume error:", err);
-      });
+    const audio = audioRef.current;
+    const step = 0.05;
+    const intervalTime = Math.max(20, duration / ((targetVolume - audio.volume) / step || 10));
+
+    fadeIntervalRef.current = setInterval(() => {
+      if (audio.volume < targetVolume - step) {
+        audio.volume = Math.min(targetVolume, audio.volume + step);
+      } else {
+        audio.volume = targetVolume;
+        clearInterval(fadeIntervalRef.current);
+      }
+    }, intervalTime);
   };
 
   useImperativeHandle(ref, () => ({
     play: playAudio,
     pause: pauseAudio,
-    fadeOut,
-    fadeIn,
+    duck: duckVolume,
+    unduck: unduckVolume,
   }));
 
   const togglePlay = () => {
@@ -99,7 +87,7 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
         type="button"
         onClick={togglePlay}
         aria-label={isPlaying ? "Mute music" : "Play music"}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/40 bg-cream/80 backdrop-blur-md shadow-sm text-burgundy active:scale-95 transition-all"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/40 bg-cream/80 backdrop-blur-md shadow-sm text-burgundy active:scale-95 transition-all cursor-pointer"
         whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
       >
         <span className="font-handwriting text-sm text-rose">

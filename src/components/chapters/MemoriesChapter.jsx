@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
-// Deterministic rotation per item so tilt stays stable on re-renders
-const TILT_ANGLES = [-1.5, 1.8, -2.1, 1.6, -1.2, 2.0, -1.9, 1.4, -2.2, 0];
+// Deterministic rotation angles per item so tilt stays stable on re-renders
+const TILT_ANGLES = [-1.8, 2.0, -1.5, 1.7, -2.2, 1.4, -1.6, 2.1, -1.9, 1.5, -2.0, 1.8];
 
 function PolaroidImage({ src, alt, fallbackTitle, shouldReduceMotion }) {
   const [hasError, setHasError] = useState(false);
@@ -13,7 +13,10 @@ function PolaroidImage({ src, alt, fallbackTitle, shouldReduceMotion }) {
         <motion.img
           src={src}
           alt={alt}
+          width="320"
+          height="240"
           loading="lazy"
+          decoding="async"
           onError={() => setHasError(true)}
           initial={
             shouldReduceMotion
@@ -24,15 +27,15 @@ function PolaroidImage({ src, alt, fallbackTitle, shouldReduceMotion }) {
             filter: "sepia(0%) contrast(100%) brightness(100%)",
             opacity: 1,
           }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
           className="w-full h-full object-cover"
         />
       ) : (
         /* Tasteful Romantic Gradient Placeholder */
         <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blush/40 via-cream to-rose/20 p-4 text-center">
           <span className="text-2xl mb-1 opacity-70">📷</span>
-          <p className="font-serif italic text-sm text-burgundy/80">
+          <p className="font-serif italic text-sm text-burgundy/80 line-clamp-2">
             {fallbackTitle}
           </p>
           <span className="font-typewriter text-[9px] text-rose uppercase tracking-widest mt-1 opacity-75">
@@ -49,7 +52,7 @@ function StormToDawnCard({ item, shouldReduceMotion }) {
   const isInView = useInView(containerRef, { amount: 0.35, once: false });
   const canvasRef = useRef(null);
 
-  // Soft falling rain simulation that eases out
+  // Soft falling rain simulation that eases out as dawn approaches
   useEffect(() => {
     if (shouldReduceMotion) return;
     const canvas = canvasRef.current;
@@ -58,6 +61,7 @@ function StormToDawnCard({ item, shouldReduceMotion }) {
     let animId;
 
     const resize = () => {
+      if (!canvas.parentElement) return;
       canvas.width = canvas.parentElement.offsetWidth;
       canvas.height = canvas.parentElement.offsetHeight;
     };
@@ -122,7 +126,6 @@ function StormToDawnCard({ item, shouldReduceMotion }) {
       transition={{ duration: 1.8, ease: "easeInOut" }}
       className="relative p-5 rounded-lg border backdrop-blur-md overflow-hidden transition-colors"
     >
-      {/* Rain canvas overlay that fades out as dawn arrives */}
       <motion.div
         animate={{ opacity: isInView ? 0 : 0.7 }}
         transition={{ duration: 1.5 }}
@@ -131,7 +134,6 @@ function StormToDawnCard({ item, shouldReduceMotion }) {
         <canvas ref={canvasRef} className="w-full h-full" />
       </motion.div>
 
-      {/* Dawn glow bloom */}
       <motion.div
         animate={{ opacity: isInView ? 0.3 : 0 }}
         transition={{ duration: 2 }}
@@ -175,7 +177,7 @@ export default function MemoriesChapter({ timelineData, metaData }) {
           {metaData?.title || "Pieces of Our Year"}
         </h2>
         <p className="font-handwriting text-lg text-rose mt-1">
-          {metaData?.subtitle || "Ten chapters of us, frame by frame"}
+          {metaData?.subtitle || "Our story together, frame by frame"}
         </p>
       </div>
 
@@ -203,7 +205,7 @@ export default function MemoriesChapter({ timelineData, metaData }) {
                 {/* Timeline node pin on gold line */}
                 <div className="absolute -left-[27px] top-1.5 w-2.5 h-2.5 rounded-full bg-cream border-2 border-gold shadow-xs z-10" />
 
-                {/* Storm to dawn specialized card */}
+                {/* Storm to dawn card */}
                 {isStormMood ? (
                   <StormToDawnCard item={item} shouldReduceMotion={shouldReduceMotion} />
                 ) : (
@@ -242,7 +244,10 @@ export default function MemoriesChapter({ timelineData, metaData }) {
                               <img
                                 src={item.doodle}
                                 alt="Sketch doodle"
+                                width="40"
+                                height="40"
                                 loading="lazy"
+                                decoding="async"
                                 onError={(e) => {
                                   e.currentTarget.style.display = "none";
                                 }}
@@ -259,7 +264,7 @@ export default function MemoriesChapter({ timelineData, metaData }) {
                       {item.caption}
                     </p>
 
-                    {/* External or Past Site Link */}
+                    {/* External Link */}
                     {item.link && (
                       <div className="mt-2">
                         <a
@@ -281,7 +286,7 @@ export default function MemoriesChapter({ timelineData, metaData }) {
         </div>
       </div>
 
-      {/* Gentle Scroll Indicator */}
+      {/* Navigation Indicator to Chapter 4 (Polaroid Wall) */}
       <div className="w-full flex flex-col items-center text-center mt-16 pb-safe">
         <button
           type="button"

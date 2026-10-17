@@ -44,6 +44,18 @@ export default function App() {
     }
   };
 
+  const handleVoicePlay = () => {
+    if (musicPlayerRef.current) {
+      musicPlayerRef.current.duck(0.12); // Lowers music volume to 12% while keeping it playing
+    }
+  };
+
+  const handleVoicePause = () => {
+    if (musicPlayerRef.current) {
+      musicPlayerRef.current.unduck(0.75); // Restores back to 75%
+    }
+  };
+
   return (
     <div
       className={`relative bg-cream selection:bg-blush selection:text-burgundy ${
@@ -95,8 +107,8 @@ export default function App() {
             />
             <LetterChapter
               letterData={content.letter}
-              onVoicePlay={handleVideoPlay}
-              onVoicePause={handleVideoPause}
+              onVoicePlay={handleVoicePlay}
+              onVoicePause={handleVoicePause}
             />
             <OpenWhenChapter
               openWhenData={content.openWhen}

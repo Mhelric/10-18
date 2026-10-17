@@ -3,27 +3,57 @@
 // ==========================================
 
 export const wall = [
+  // --- OCTOBER 2025 ---
   { id: 1, photo: "/photos/wall-1.webp", note: "My first drawing of you", date: "OCT 2025" },
+
+  // --- NOVEMBER 2025 ---
   { id: 2, photo: "/photos/wall-2.webp", note: "The first pic that made me realize how pretty you really are", date: "NOV 2025" },
   { id: 3, photo: "/photos/wall-3.webp", note: "You showed me the sunset of Romblon", date: "NOV 2025" },
-  { id: 4, photo: "/photos/wall-4.webp", note: "Matching profiles", date: "DEC 2025" },
-  { id: 5, photo: "/photos/wall-5.webp", note: "The bracelet", date: "DEC 2025" },
-  { id: 6, photo: "/photos/wall-6.webp", note: "My valentines letter for you", date: "FEB 2026" },
-  { id: 7, photo: "/photos/wall-7.webp", note: "Valentines gifts", date: "FEB 2026" },
-  { id: 8, photo: "/photos/wall-8.webp", note: "You bought a new black dress and showed it to me", date: "FEB 2026" },
-  { id: 9, photo: "/photos/wall-9.webp", note: "You offering me sampalok", date: "MAR 2026" },
-  { id: 10, photo: "/photos/wall-10.webp", note: "Us doing the heart sign with hands", date: "MAR 2026" },
-  { id: 11, photo: "/photos/wall-11.webp", note: "You holding the books I gifted you", date: "APRIL 2026" },
-  { id: 12, photo: "/photos/wall-12.webp", note: "Our VC while I'm reviewing for my test", date: "APRIL 2026" },
-  { id: 13, photo: "/photos/wall-13.webp", note: "Me taking a grad pic but still highlighting you", date: "MAY 2026" },
-  { id: 14, photo: "/photos/wall-14.webp", note: "You sketched me, my artist", date: "JUNE 2026" },
-  { id: 15, photo: "/photos/wall-15.webp", note: "Us doing the index finger love pic", date: "JUNE 2026" },
-  { id: 16, photo: "/photos/wall-16.webp", note: "You always eating lugaw on your school break", date: "JULY 2026" },
-  { id: 17, photo: "/photos/wall-17.webp", note: "Us imagining ourselves together in my grad pictorial", date: "JULY 2026" },
-  { id: 18, photo: "/photos/wall-18.webp", note: "You tried coding coz you got motivated", date: "AUG 2026" },
-  { id: 19, photo: "/photos/wall-19.webp", note: "My 2 babies Jai and Fudgee", date: "AUG 2026" },
-  { id: 20, photo: "/photos/wall-20.webp", note: "Sleepcall", date: "SEPT 2026" },
-  { id: 21, photo: "/photos/wall-21.webp", note: "Your graduation gift Luffy figurine", date: "SEPT 2026" },
+  { id: 4, photo: "/photos/wall-paper-flowers.webp", note: "Made you paper flowers", date: "NOV 2025" }, // NEW
+
+  // --- DECEMBER 2025 ---
+  { id: 5, photo: "/photos/wall-4.webp", note: "Matching profiles", date: "DEC 2025" },
+  { id: 6, photo: "/photos/wall-5.webp", note: "The bracelet", date: "DEC 2025" },
+  { id: 7, photo: "/photos/wall-one-piece.webp", note: "Us on VC when you fell asleep watching One Piece", date: "DEC 2025" }, // NEW
+
+  // --- JANUARY 2026 ---
+  { id: 8, photo: "/photos/wall-sabaw.webp", note: "Soup...", date: "JAN 2026" }, // NEW
+
+  // --- FEBRUARY 2026 ---
+  { id: 9, photo: "/photos/wall-6.webp", note: "My valentines letter for you", date: "FEB 2026" },
+  { id: 10, photo: "/photos/wall-7.webp", note: "Valentines gifts", date: "FEB 2026" },
+  { id: 11, photo: "/photos/wall-8.webp", note: "You bought a new black dress and showed it to me", date: "FEB 2026" },
+
+  // --- MARCH 2026 ---
+  { id: 12, photo: "/photos/wall-9.webp", note: "You offering me sampalok", date: "MAR 2026" },
+  { id: 13, photo: "/photos/wall-10.webp", note: "Us doing the heart sign with hands", date: "MAR 2026" },
+  { id: 14, photo: "/photos/wall-sabaw-java.webp", note: "Sabaw meets Java", date: "MAR 2026" }, // NEW
+
+  // --- APRIL 2026 ---
+  { id: 15, photo: "/photos/wall-11.webp", note: "You holding the books I gifted you", date: "APRIL 2026" },
+  { id: 16, photo: "/photos/wall-12.webp", note: "Our VC while I'm reviewing for my test", date: "APRIL 2026" },
+  { id: 17, photo: "/photos/wall-defense-outfit.webp", note: "You narrating my defense outfit", date: "APRIL 2026" }, // NEW
+
+  // --- MAY 2026 ---
+  { id: 18, photo: "/photos/wall-13.webp", note: "Me taking a grad pic but still highlighting you", date: "MAY 2026" },
+  { id: 19, photo: "/photos/wall-series.webp", note: "Enjoying her favorite series", date: "MAY 2026" }, // NEW
+
+  // --- JUNE 2026 ---
+  { id: 20, photo: "/photos/wall-14.webp", note: "You sketched me, my artist", date: "JUNE 2026" },
+  { id: 21, photo: "/photos/wall-15.webp", note: "Us doing the index finger love pic", date: "JUNE 2026" },
+  { id: 22, photo: "/photos/wall-mlbb.webp", note: "MLBB 1v1 highlights", date: "JUNE 2026" }, // NEW
+
+  // --- JULY 2026 ---
+  { id: 23, photo: "/photos/wall-16.webp", note: "You always eating lugaw on your school break", date: "JULY 2026" },
+  { id: 24, photo: "/photos/wall-17.webp", note: "Us imagining ourselves together in my grad pictorial", date: "JULY 2026" },
+
+  // --- AUGUST 2026 ---
+  { id: 25, photo: "/photos/wall-18.webp", note: "You tried coding coz you got motivated", date: "AUG 2026" },
+  { id: 26, photo: "/photos/wall-19.webp", note: "My 2 babies Jai and Fudgee", date: "AUG 2026" },
+
+  // --- SEPTEMBER 2026 ---
+  { id: 27, photo: "/photos/wall-20.webp", note: "Sleepcall", date: "SEPT 2026" },
+  { id: 28, photo: "/photos/wall-21.webp", note: "Your graduation gift Luffy figurine", date: "SEPT 2026" },
 ];
 
 export const song = {
@@ -433,13 +463,35 @@ export const letter = {
   voicePlayingLabel: "Listening to my voice...",
   continueCue: "to open when",
   paragraphs: [
-    `1 whole year... akalain mo yun lovey? Isang taon na pala mula nung gabing nag-chat ka sakin ng "paturo". Ang dami na nating napagdaanan noh? Alam mo ba lovey na hanggang ngayon, pag naaalala ko yung gabing yun, napapangiti pa din ako na parang tanga. Anim na chats lang yun lovey. Anim lang. "paturo", "paturo ng?", "art", tas tinanong mo ko kung ano ba gamot sa pagiging tamad, tas sagot ko lang "motivation" tapos nag-HAHAHAHHA pa ko. Hindi ko alam nun na yung simpleng sagot na yun pala yung magiging pinaka-totoong nasabi ko sa buong buhay ko, kasi simula nung gabing yun, ikaw na talaga yung naging motivation ko sa lahat lahat. Nagpapaturo ka lang ng art nun, pero ikaw pala yung magtuturo sakin kung paano magmahal nang totoo. :>`,
-    `Alam mo ba lovey na hindi ko makakalimutan yung November 10. Yung araw na pumayag kang ligawan kita. Hindi ko maexplain kung gaano ako kasaya nun, parang ang tagal ko na palang may hinihintay tapos bigla mo lang ibinigay sakin. Hindi pa tayo official nun, pero sa puso ko lovey, ikaw na talaga yun. Sa dami ng pwede mong piliin, pinili mo kong bigyan ng chance kahit alam mong immature pa ko at ang dami ko pang kailangang ayusin. Kaya hanggang ngayon lovey, sobrang thankful ako na hindi mo ko sinukuan agad. Promise yan, hindi ko sasayangin yung chance na yun.\n\nTas Christmas at New Year natin, magkalayo tayo pero magkasama sa video call. Para akong batang excited na excited ibigay sayo yung bracelet natin, yung una nating couple bracelet. Hanggang ngayon suot pa din natin lovey, hindi ko pa natatanggal kahit minsan. Kahit hindi kita mayakap nun, ramdam na ramdam ko pa din na kasama kita. Pinakamasayang Pasko ko yun, kahit sa maliit na screen lang tayo nagkita. Sobra sobra.`,
-    `Tapos dumating si Soup. January 20, pinangalanan natin ang panganay nating baby. Aaminin ko lovey, nung nakapili na tayo ng pangalan niya, naisip ko agad na "ay, may pamilya na pala ako" HAHAHA. Tas March 10, dumating naman si Java, kaya dalawa na sila. Ang saya saya ko lovey kasi kahit sa mga ganitong maliliit na bagay, ramdam kong tayo na talaga yung bubuo ng pamilya. Pareho tayong mahilig sa pusa, pareho tayong mga baliw sa kanila, kaya perfect match talaga tayo noh? Soon sina Calfric at Jheira naman ha po :>\n\nTas first Valentine's natin, binigyan kita ng website. Yung una kong ginawa para sayo. Gusto ko kasi na may isang maliit na lugar sa internet na pwede mong balikan lagi kapag gusto mong maramdaman na mahal na mahal ka ng boyfriend mo. Akalain mo lovey, ito na yung pangalawa, at mas pinaghirapan ko pa to, mas pinag-isipan ko pa, kasi hindi ako titigil gumawa ng mga bagay na ikakangiti mo. Kung binabasa mo to ngayon, ibig sabihin natapos mo na yung buong website. Sana lovey nagustuhan mo, kahit konti lang.`,
-    `Tas yung birthday mo lovey, April 27. Binigay ko sayo yung He's Into Her series kasi alam kong paborito mo yun, at kasi syempre... gusto kong maging yung bida na sobrang into sayo HAHAHA. Pero ikaw yung nagbigay ng pinakamagandang regalo sakin nung araw na yun. Yung "yes" mo. Yung araw na naging boyfriend mo na ko. Akala ko dati sa libro lang nangyayari yung ganung klase ng kilig, pero lovey, nangyari din pala sakin. Hindi ko makakalimutan yung araw na yun kahit kailan. Pinakamasuwerteng lalaki ako nung araw na yun, at hanggang ngayon, ako pa din.\n\nTas lovey, yung first time na nag-usap kayo ni mama sa video call, May 17. Aaminin ko po kinakabahan ako nun HAHAHA, pero nung nakita ko kayong magkausap at nagtatawanan, parang may gumaan sa dibdib ko. Dalawa sa pinakamahalagang babae sa buhay ko, magkasama sa isang maliit na screen. Tinuturing mo na din siyang nanay mo, at ramdam ko lovey na tinuturing ka na din niyang anak. Sobrang saya ko nun. Hindi ko to nasabi sayo nang maayos, kaya sinasabi ko na ngayon: thank you lovey, kasi hindi mo lang ako minahal, minahal mo din yung pamilya ko.\n\nTapos pagkatapos nun, May 27, first monthsary natin. 1 month pa lang tayo nun lovey, pero parang ang tagal tagal ko ng kilala yung pakiramdam ng may ikaw. Parang hindi ko na maalala kung paano ako dati bago ka dumating.`,
-    `Pero lovey, alam kong hindi puro saya ang taon na to. Ang dami din nating away, selosan, tampuhan. Minsan nasasaktan kita, minsan nasasaktan mo ko, minsan pareho pa tayong nagtitigasan. Yung mga selos mo lovey, nakakainis minsan pero cute din HAHAHA, kasi alam kong dahil yun sa mahal mo ko. Pero ito yung gusto kong malaman mo: sa bawat away natin, wala akong gabi na hindi ka pinili. Kahit ilang beses pa tayong magtampuhan, ikaw pa din ang gusto kong uwian. At sobrang proud ako satin lovey, kasi hindi tayo natutong sumuko, natutunan nating mag-ayos. Sorry po sa lahat ng mga panahong naging immature ako, at sobra sobrang salamat sa pag-intindi, sa pasensya, at sa pananatili mo. Pagkatapos ng bawat bagyo, mas lalo kitang minamahal. I really 2x mean that.\n\nGusto ko ding pasalamatan lahat ng maliliit na bagay na ginagawa mo, kahit siguro hindi mo napapansin. Yung pagagalitan mo ko pag puyat ako, yung "anong oras na?" mo na alam ko namang pinapatulog mo na ko HAHAHA, yung pagbibilang mo pag gusto mong ulitin ko yung sinabi ko, yung sabay nating paghalik sa phone sa call, yung pagkanta mo sakin, yung pag-aalala mo kung kumain na ba ko, yung paglaban mo sa antok para lang makausap pa ko, at yung pagkakatulog mo sa gitna ng kwentuhan natin kasi pagod na pagod ka na pero gusto mo pa din akong samahan. Lahat yun lovey, yun yung mga bagay na hindi ko mapapalitan ng kahit ano. Kapag nakakakita ako ng notification galing sayo, parang laging may party sa puso ko.\n\nSalamat din lovey kasi tinuruan mo ulit akong lumapit kay God. Alam kong Siya ang may gawa kung bakit tayo nagkakilala nung gabing yun, at nagpapasalamat ako sa Kanya araw-araw na ikaw ang ibinigay Niya sakin.`,
-    `Hanggang ngayon lovey, hindi pa kita nahahawakan, hindi pa kita nayayakap, hindi pa kita nahahalikan. Pero sa isang taon na to, ikaw na yung pinakamalapit na tao sakin sa mundo. Kaya sobrang excited ako sa araw na mangyari na lahat yun. Yung makapag-date na tayo, makapag-gala, makapag-holding hands, makakain ng mga paborito mong may suka, asin at sili HAHAHA. Yung makapunta tayo sa Japan na matagal na nating pinapangarap. Yung makilala ko na ng personal ang parents mo, at hingin ko mismo ang blessing nila para sayo. Yung makita kitang magmartsa sa graduation mo, tapos ako yung pinakamalakas na pumapalakpak sa likod. Lahat ng yan lovey, gusto kong gawin kasama ka. Gusto kong ikaw yung una ko sa lahat ng yan.\n\nSana pagdating ng araw, makapagpatayo tayo ng sarili nating bahay, may Soup at Java na naghihintay sa pinto, at may Calfric at Jheira na tumatakbo sa loob. Alam kong malayo pa yun, pero hindi ako nagmamadali basta kasama kita. Magpapakabuti ako lovey, magtatrabaho ako nang mabuti, magiging mas mabuting lalaki ako araw-araw, para sa future natin. Promise yan.`,
-    `Tas lovey isa pa, sa October 27, 6 months na tayo. Pagbigyan mo ko ulit na gumawa ng surprise ha po :>\n\nLovey ko, mahal na mahal kita, sa totoo lang hindi ko alam kung may salita pa ba para sa sobrang pagmamahal ko sayo. Salamat sa isang taon na to, salamat sa gabing nag-chat ka ng "paturo", at salamat sa bawat araw na pinili mo kong mahalin kahit hindi ako perpekto. Ikaw ang pinakamagandang nangyari sa buhay ko, Jaira Mesana Roxas, soon to be my wife Jaira Roxas Banaag. Tayong dalawa till death do us part. Happy 1st Anniversary since we met, lovey ko! Sana marami pa tayong anniversaries, monthsaries, tawanan, asaran, tampuhan, at pagmamahalan na pagsasamahan. My love for you will never end. I promise that. Muah! Muah! Muah! ♥`,
+    `1 whole year na pala, lovey... akalain mo yun? Isang buong taon na ang lumipas mula nung gabing nag-chat ka sakin ng "paturo". Hanggang ngayon, tuwing naiisip ko yung gabing yun, napapangiti pa rin talaga ako na parang ewan. Anim na chats lang naman yun, "paturo", "paturo ng?", "art", tapos tinanong mo ko kung ano ang gamot sa pagiging tamad, at sinagot kita ng "motivation" na may kasama pang "HAHAHAHHA". Hindi ko akalain na yung simpleng chat na yun pala ang magiging pinakatotoong bagay na masasabi ko sa buong buhay ko. Kasi simula noon, ikaw na talaga ang naging motivation ko sa lahat-lahat. Nagpaturo ka lang naman ng art, pero ang totoo, ikaw pala ang magtuturo sa akin kung paano magmahal nang totoo. :>`,
+
+    `Hinding-hindi ko rin makakalimutan yung November 10, yung araw na pumayag kang manligaw ako sayo. Hindi ko maipaliwanag yung saya ko nun—para bang may matagal na akong hinihintay na bigla mo na lang ibinigay. Kahit hindi pa tayo official noon, sa puso ko, ikaw na talaga. Sa dami ng pwede mong piliin, binigyan mo pa rin ako ng chance kahit alam mong marami pa akong kailangang ayusin at medyo immature pa ako. Kaya hanggang ngayon, sobra-sobra ang pasasalamat ko na hindi mo ako sinukuan agad. Pangako, hinding-hindi ko sasayangin yung tiwalang binigay mo.
+
+    Sumunod yung unang Pasko at Bagong Taon natin. Magkalayo man tayo at sa video call lang nagkasama, para akong batang sobrang excited ibigay sayo yung una nating couple bracelet. Hanggang ngayon suot-suot pa rin natin to lovey. Kahit hindi kita mayakap nang personal, ramdam na ramdam ko pa rin ang presence mo. Yun na ata ang pinakamasayang Pasko at Bagong Taon ko, kahit na sa screen lang tayo nagkita.`,
+
+    `Tapos nagsimula na tayong bumuo ng sarili nating mundo. January 20 nung dumating at pinangalanan natin ang panganay nating si Soup. Aaminin ko, nung pinangalanan natin sya, naisip ko agad, "ay, may pamilya na pala ako" HAHAHA. Nung March 10 naman, dumating si Java para maging dalawa na sila. Sobrang saya ko kasi kahit sa mga simpleng bagay na 'to, ramdam ko talagang tayo ang magkasamang bubuo ng pamilya. Pareho tayong baliw sa pusa, kaya perfect match talaga tayo noh? Sayang lang din kasi agad din silang umalis satin.. tsaka si Harith at Jabaw pero buti na lang andito na din ang bagong baby natin na si Wiggles at soon may isa pa! Sa future, susunod din sina Calfric at Jheira na and totoong babies natin hehe.
+
+    Nung first Valentine's natin, ginawan kita ng website—yung kauna-unahan kong ginawa para sayo. Gusto ko kasing magkaroon ka ng isang side sa internet na pwede mong balikan tuwing kailangan mong maramdaman kung gaano ka kamahal ng boyfriend mo. At ngayon, ito na yung 2nd website! Mas pinaghirapan at mas pinag-isipan ko 'to, kasi hinding-hindi ako mapapagod gumawa ng mga bagay na magpapangiti sayo. Kung binabasa mo 'to ngayon, ibig sabihin natapos mo na yung buong page. Sana lovey, nagustuhan mo kahit papaano.`,
+
+    `Dumating ang birthday mo nung April 27. Binilhan kita ng He's Into Her series dahil paborito mo yun, at syempre... pangarap ko ring maging bida na sobrang "into sayo" HAHAHA. Pero ang totoo, ikaw ang nagbigay ng pinakamagandang regalo sakin nung araw na yun, yung "oo" mo. Naging boyfriend mo na ako! Akala ko dati sa mga libro lang nangyayari yung ganung kilig, pero nangyari pala talaga sakin. Ako ang pinakamaswerteng lalaki nung araw na yun, at hanggang ngayon, ako pa rin.
+
+    Isa pa sa mga hinding-hindi ko malilimutan ay nung May 17, nung unang beses kayong nag-usap ni mama sa video call. Kinakabahan ako noon HAHAHA, pero nung makita ko kayong nagtatawanan, biglang gumaan ang loob ko. Ang dalawang pinakamahalagang babae sa buhay ko, nagiging close na sa isa't isa. Tinuring mo siyang nanay mo, at ramdam kong tinuring ka na rin niyang tunay na anak. Salamat lovey, kasi hindi mo lang ako minahal— minahal at tinanggap mo rin pati ang pamilya ko. Pagkatapos nun, May 27, first monthsary agad natin. Isang buwan pa lang tayo noon pero parang ang tagal na nating magkasama, at parang hindi ko na matandaan kung anong buhay ko bago ka dumating.`,
+
+    `Alam ko namang hindi naging perfect ang buong taon. Dumaan din tayo sa away, selosan, at tampuhan. Minsan nagkakasakitan tayo at nagmamatigasan. Yung mga selos mo nga, nakakaasar minsan pero ang cute cute pa din HAHAHA, kasi alam kong dahil mahal mo ko. Pero tandaan mo 'to lovey, sa bawat hindi natin pagkakaunawaan, wala ni isang gabi na hindi kita pinili. Kahit gaano kahirap, ikaw at ikaw pa rin ang uuwian ko. Sobrang proud ako satin dahil natutunan nating mag-ayos imbes na sumuko. Pasensya ka na sa mga pagkukulang at sa immaturity ko minsan, at maraming salamat sa walang sawang pag-unawa, pasensya, at pananatili. Pagkatapos ng bawat bagyo, mas lalo kitang minamahal—totoong-totoo yan.
+
+    Gusto ko ring magpasalamat sa lahat ng maliliit na bagay na ginagawa mo. Yung panenermon mo pag nagpupuyat ako, yung seryosong "anong oras na?" na pampatulog pala HAHAHA, yung pagbibilang mo para lang ulitin ko yung sinabi ko, yung sabay nating paghalik sa screen ng phone tuwing call, yung pagkanta mo, yung pangungumusta kung kumain na ba ako, at yung pilit mong nilalabanan ang antok makipag-usap lang, hanggang sa makatulog ka na sa pagod habang magkausap tayo. Lahat ng yun, walang katumbas para sakin. Tuwing may notification na galing sayo, laging may saya sa puso ko.
+
+    Higit sa lahat, salamat dahil tinuruan mo akong mapalapit ulit kay God. Alam kong Siya ang may plano kung bakit nagtagpo ang landas natin nung gabing yun, at araw-araw akong nagpapasalamat sa Kanya dahil ikaw ang ibinigay Niya sakin.`,
+
+    `Hanggang ngayon, hindi pa kita nayayakap, nahahawakan, o nahahalikan sa personal. Pero sa loob ng isang taon na 'to, ikaw ang naging pinakamalapit na tao sa buong buhay ko. Kaya sabik na sabik na ako sa panahong magagawa na natin lahat, yung makapag-date tayo sa labas, maglakad nang magkahawak ang kamay, kumain ng paborito mong foods na may suka, asin, at sili HAHAHA. Yung matupad natin yung pangarap nating Japan at Around The World trip. Yung makilala ko sa personal ang parents mo para pormal na hingin ang blessing nila. At yung makita kitang nagmamartsa sa graduation mo habang ako ang pinakamalakas pumalakpak para sayo. Gusto kong ikaw ang maging una ko sa lahat ng mga karanasang ito.
+
+    Balang araw, magkakaroon din tayo ng sarili nating bahay kung saan sasalubong ang mga baby cats natin sa pinto, habang tumatakbo naman sina Calfric at Jheira sa loob. Baka matagal pa yun, pero handa akong maghintay basta't ikaw ang kasama ko. Magpupursigi ako, magtatrabaho nang tapat, at magiging mas mabuting boyfriend araw-araw para sa kinabukasan natin. Pangako yan.`,
+
+    `Nga pala lovey, sa October 27, 6 months na tayo officially! Birthday ko na tapos monthsary pa natin! Ang exciting hehe :>
+
+    Lovey ko, kulang ang mga salita para sabihin kung gaano kita kamahal. Salamat sa nakalipas na isang taon, salamat sa chat mong "paturo", at salamat sa bawat araw na pinipili mo akong mahalin sa kabila ng lahat. Ikaw ang pinakamagandang biyayang dumating sa akin, Jaira Mesana Roxas—na magiging asawa kong si Jaira Roxas Banaag balang araw. Tayong dalawa hanggang dulo, till death do us part.
+
+    Happy 1st Anniversary since we met, lovey ko! More and more anniversaries, monthsaries, tawanan, asaran, at pagmamahal na pagsasaluhan. My love for you will never ever end, tandaan mo po yan. Muah! Muah! Muah! ♥`,
   ],
   signature: ["YOUR SCRUMPTIOUS DORKY BF", "MELTOT"],
 };
@@ -448,6 +500,7 @@ export const letter = {
 // Open When Envelopes Data (Chapter 09)
 // ==========================================
 export const openWhen = [
+  { label: "Open if you really want to see your gift", text: "Open the parcel/box with your gift lovey. That's only for you!" },
   { label: "Open when you miss me", text: "Look at your wrist, lovey. I'm right there with you. Bracelet and all." },
   { label: "Open when we're fighting", text: "I'm sorry in advance. I'm still choosing you. Let's talk, then let's laugh after." },
   { label: "Open when you can't sleep", text: "Sleepcall muna tayo. Tell me lovey, we'll call right away!" },
@@ -501,14 +554,16 @@ export const content = {
     locationLabel: "Opening in Romblon on Oct 18",
     clue: "Pangalawang baby natin",
     riddleClue: "Pangalawang baby natin",
-    password: "java",
-    secretWord: "java",
+    password: "ano tara?",
+    secretWord: "ano tara?",
     errorMascot: "/art/error.png",
     successMascot: "/art/success.png",
     errorMessages: [
-      "Not quite, Loveyyy... remember our second baby?",
-      "Think of our sweet little furry one...",
-      "Clue: starts with J!",
+      "Our favorite activity, hehe",
+      "Think of the thing we do every monthsary.",
+      "It has two words",
+      "Clue: it has a '?'",
+      "All small letters <3"
     ],
     successMessage: "You remembered our Java. Opening our world...",
     placeholder: "Type the password...",
@@ -539,80 +594,143 @@ export const content = {
   },
   timeline: [
     {
-      id: 1,
-      stamp: "OCT 18, 2025",
-      title: '"Paturo"',
-      caption: "You typed one word to see my drawings. I didn't know that one word would turn into a whole year.",
-      photo: "/photos/01-paturo.webp",
-      doodle: "/doodles/paturo.svg",
-    },
-    {
-      id: 2,
-      stamp: "NOV 10, 2025",
-      title: "The First Yes",
-      caption: "You let me court you. We weren't official yet, but I already knew I wasn't going anywhere.",
-      photo: "/photos/02-courting.webp",
-    },
-    {
-      id: 3,
-      stamp: "DEC 25, 2025 · JAN 1, 2026",
-      title: "Miles Apart, One Screen",
-      caption: "Christmas and New Year on a video call. We exchanged our first couple bracelets, and we still haven't taken them off.",
-      photo: "/photos/03-bracelets.webp",
-    },
-    {
-      id: 4,
-      stamp: "JAN 20, 2026",
-      title: "Soup",
-      caption: "We named our panganay. Our first baby.",
-      photo: "/photos/04-soup.webp",
-      doodle: "/doodles/soup.svg",
-    },
-    {
-      id: 5,
-      stamp: "FEB 14, 2026",
-      title: "First Valentine's",
-      caption: "My first Valentine's with the girl I love. I made you a little website, and it was only the beginning.",
-      photo: "/photos/05-valentines.webp",
-      link: { label: "Chapter 0: where it began", url: "OLD_SITE_URL" },
-    },
-    {
-      id: 6,
-      stamp: "MAR 10, 2026",
-      title: "Java",
-      caption: "Our pangalawa. The family got bigger, and so did my heart.",
-      photo: "/photos/06-java.webp",
-      doodle: "/doodles/java.svg",
-    },
-    {
-      id: 7,
-      stamp: "APR 27, 2026",
-      title: "Your Birthday, My Yes",
-      caption: 'I gave you the He\'s Into Her series for a girl I was already so into. Then you gave me the best gift of my life: the "yes." Mhel and Jai, officially.',
-      photo: "/photos/07-birthday.webp",
-      doodle: "/doodles/book.svg",
-    },
-    {
-      id: 8,
-      stamp: "MAY 17, 2026",
-      title: "You Met My Mom",
-      caption: "You and my mom finally talked on video call. My two favorite women on one tiny screen.",
-      photo: "/photos/08-mom-call.webp",
-    },
-    {
-      id: 9,
-      stamp: "MAY 27, 2026",
-      title: "Monthsary No. 1",
-      caption: "Monthsary No. 1. One month of being yours. Just the first of many.",
-      photo: "/photos/09-monthsary.webp",
-    },
-    {
-      id: 10,
-      stamp: "ALL YEAR",
-      title: "The Storms",
-      caption: "We've had our fights and our jealousy. We always find our way back to each other, sweeter than before. That's the part I'm proudest of.",
-      mood: "storm-to-dawn",
-    },
+    id: 1,
+    stamp: "OCT 18, 2025",
+    title: '"Paturo"',
+    caption: "You typed one word to see my drawings. I didn't know that one word would turn into a whole year.",
+    photo: "/photos/01-paturo.webp",
+    doodle: "/doodles/paturo.svg",
+  },
+  {
+    id: 2,
+    stamp: "OCT 2025",
+    title: "First Birthday Greeting",
+    caption: "You were the very first one to greet me on my birthday, making an ordinary day feel unforgettable.",
+    photo: "/photos/t-01-birthday.webp",
+  },
+  {
+    id: 3,
+    stamp: "NOV 10, 2025",
+    title: "The First Yes",
+    caption: "You let me court you. We weren't official yet, but I already knew I wasn't going anywhere.",
+    photo: "/photos/02-courting.webp",
+  },
+  {
+    id: 4,
+    stamp: "NOV 2025",
+    title: "First Voice Message",
+    caption: "The first time I ever heard your voice on a voicemail. My heart skipped a beat right then.",
+    photo: "/photos/t-02-voicemail.webp",
+  },
+  {
+    id: 5,
+    stamp: "NOV 2025",
+    title: "Our First Call",
+    caption: "The very first time we stayed on the phone together, talking like we had known each other forever.",
+    photo: "/photos/t-03-first-call.webp",
+  },
+  {
+    id: 6,
+    stamp: "DEC 2025",
+    title: "Finding Peace at Church",
+    caption: "At church together right when we were navigating our first argument, choosing each other through it all.",
+    photo: "/photos/t-04-church.webp",
+  },
+  {
+    id: 7,
+    stamp: "DEC 25, 2025 · JAN 1, 2026",
+    title: "Miles Apart, One Screen",
+    caption: "Christmas and New Year on a video call. We exchanged our first couple bracelets, and we still haven't taken them off.",
+    photo: "/photos/03-bracelets.webp",
+  },
+  {
+    id: 8,
+    stamp: "JAN 20, 2026",
+    title: "Soup",
+    caption: "We named our panganay. Our first baby.",
+    photo: "/photos/04-soup.webp",
+    doodle: "/doodles/soup.svg",
+  },
+  {
+    id: 9,
+    stamp: "FEB 14, 2026",
+    title: "First Valentine's",
+    caption: "My first Valentine's with the girl I love. I made you a little website, and it was only the beginning.",
+    photo: "/photos/05-valentines.webp",
+    link: { label: "Chapter 0: where it began", url: "OLD_SITE_URL" },
+  },
+  {
+    id: 10,
+    stamp: "MAR 10, 2026",
+    title: "Java",
+    caption: "Our pangalawa. The family got bigger, and so did my heart.",
+    photo: "/photos/06-java.webp",
+    doodle: "/doodles/java.svg",
+  },
+  {
+    id: 11,
+    stamp: "APR 2026",
+    title: "Defense Motivation",
+    caption: "You giving me all the belief and motivation I needed when my thesis defense felt heavy.",
+    photo: "/photos/t-05-defense-motivation.webp",
+  },
+  {
+    id: 12,
+    stamp: "APR 27, 2026",
+    title: "Your Birthday, My Yes",
+    caption: 'I gave you the He\'s Into Her series for a girl I was already so into. Then you gave me the best gift of my life: the "yes." Mhel and Jai, officially.',
+    photo: "/photos/07-birthday.webp",
+    doodle: "/doodles/book.svg",
+  },
+  {
+    id: 13,
+    stamp: "MAY 17, 2026",
+    title: "You Met My Mom",
+    caption: "You and my mom finally talked on video call. My two favorite women on one tiny screen.",
+    photo: "/photos/08-mom-call.webp",
+  },
+  {
+    id: 14,
+    stamp: "MAY 27, 2026",
+    title: "Monthsary No. 1",
+    caption: "Monthsary No. 1. One month of being yours. Just the first of many.",
+    photo: "/photos/09-monthsary.webp",
+  },
+  {
+    id: 15,
+    stamp: "AUG 2026",
+    title: "Workout Routine",
+    caption: "Pushing through workouts and improving myself every single day with you cheering me on.",
+    photo: "/photos/t-06-workout.webp",
+  },
+  {
+    id: 16,
+    stamp: "SEP 2026",
+    title: "The Long Letter",
+    caption: "Pouring out my deepest thoughts and promises into long, heartfelt letters written just for you.",
+    photo: "/photos/t-07-long-letter.webp",
+  },
+  {
+    id: 17,
+    stamp: "OCT 2026",
+    title: "Jabaw ~ Wigels",
+    caption: "Adopted our 2 new kitties, though Jabaw left us so early.",
+    photo: "/photos/t-08-jabaw-wigels.webp",
+  },
+  {
+    id: 18,
+    stamp: "OCT 2026",
+    title: "The Jacket",
+    caption: "Wearing this jacket for you lovey.",
+    photo: "/photos/t-09-jacket.webp",
+  },
+  {
+    id: 19,
+    stamp: "ALL YEAR",
+    title: "The Rainbow after the Storm",
+    caption: "We've had our fights and our jealousy. We always find our way back to each other, sweeter than before. That's the part I'm proudest of.",
+    mood: "storm-to-dawn",
+  },
   ],
   timelineMeta: {
     chapterTag: "Chapter 03 • The Timeline",

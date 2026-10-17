@@ -25,7 +25,7 @@ export default function WallChapter({ wallData, metaData }) {
   return (
     <section
       id="wall"
-      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-16 select-none border-b border-blush/30 flex flex-col justify-between"
+      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-16 select-none border-b border-blush/30 flex flex-col justify-between overflow-hidden"
     >
       {/* Chapter Marker Header */}
       <div className="w-full flex flex-col items-center text-center mb-8">
@@ -51,7 +51,7 @@ export default function WallChapter({ wallData, metaData }) {
         )}
       </div>
 
-      {/* Responsive 2-Column Polaroid Grid (Fully Scrollable, No Overlap) */}
+      {/* Responsive 2-Column Polaroid Grid (28 Scrollable Memories) */}
       <div className="relative w-full max-w-[360px] mx-auto grid grid-cols-2 gap-x-4 gap-y-6 pb-8">
         {items.map((item, index) => {
           const rotate = shouldReduceMotion ? 0 : ROTATIONS[index % ROTATIONS.length];
@@ -93,7 +93,7 @@ export default function WallChapter({ wallData, metaData }) {
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     style={{ transformStyle: "preserve-3d" }}
                   >
-                    {/* Front: Photo */}
+                    {/* Front: Photo or Tasteful Gradient Placeholder */}
                     <div
                       className="absolute inset-0 w-full h-full bg-[#EFE8DC] overflow-hidden rounded-[2px]"
                       style={{ backfaceVisibility: "hidden" }}
@@ -102,7 +102,10 @@ export default function WallChapter({ wallData, metaData }) {
                         <img
                           src={item.photo}
                           alt={item.note}
+                          width="165"
+                          height="124"
                           loading="lazy"
+                          decoding="async"
                           onError={() =>
                             setImageErrors((prev) => ({ ...prev, [item.id]: true }))
                           }
@@ -111,7 +114,7 @@ export default function WallChapter({ wallData, metaData }) {
                       ) : (
                         <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blush/30 via-cream to-rose/20 p-2 text-center">
                           <span className="text-lg mb-0.5 opacity-70">📷</span>
-                          <span className="font-serif italic text-[11px] text-burgundy/80 line-clamp-2">
+                          <span className="font-serif italic text-[11px] text-burgundy/80 line-clamp-2 leading-tight">
                             {item.note}
                           </span>
                         </div>
@@ -151,7 +154,7 @@ export default function WallChapter({ wallData, metaData }) {
         })}
       </div>
 
-      {/* Gentle Scroll Indicator to Chapter 5 (Song Chapter) */}
+      {/* Gentle Scroll Indicator to Chapter 5 (Song / Harana) */}
       <div className="w-full flex flex-col items-center text-center pt-6 pb-safe">
         <button
           type="button"

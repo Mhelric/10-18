@@ -45,7 +45,8 @@ export default function JokesChapter({ jokesData, metaData }) {
       </div>
 
       {/* Swipeable / Scrollable Card Stack or Grid */}
-        <div className="w-full max-w-[365px] mx-auto my-auto grid grid-cols-1 gap-3.5 py-2 overflow-y-auto max-h-[56vh] px-1 custom-gold-scrollbar">
+        {/* Change the card list container to use no-scrollbar */}
+        <div className="w-full max-w-[365px] mx-auto my-auto grid grid-cols-1 gap-3.5 py-2 overflow-y-auto max-h-[56vh] px-1 no-scrollbar">
         {items.map((item, index) => {
           const isCollected = Boolean(collectedIds[index]);
           const isActive = activeId === index;
