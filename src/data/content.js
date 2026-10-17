@@ -735,7 +735,7 @@ export const content = {
   timelineMeta: {
     chapterTag: "Chapter 03 • The Timeline",
     title: "Pieces of Our Year",
-    subtitle: "Ten chapters of us, frame by frame",
+    subtitle: "Chapters of us, frame by frame",
     continueCue: "to the polaroid wall",
   },
   wallMeta: {
