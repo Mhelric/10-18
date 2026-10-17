@@ -69,6 +69,8 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
     pause: pauseAudio,
     duck: duckVolume,
     unduck: unduckVolume,
+    fadeOut: pauseAudio,
+    fadeIn: playAudio,
   }));
 
   const togglePlay = () => {

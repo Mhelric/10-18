@@ -19,6 +19,9 @@ export default function SongChapter({ songData, metaData, onVideoPlay, onVideoPa
   const handleStartPlay = () => {
     setIsLoaded(true);
 
+    // Pause site background music immediately on tap
+    if (onVideoPlay) onVideoPlay();
+
     const initPlayer = () => {
       if (!window.YT || !window.YT.Player) return;
 

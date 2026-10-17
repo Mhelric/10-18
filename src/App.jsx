@@ -34,25 +34,25 @@ export default function App() {
 
   const handleVideoPlay = () => {
     if (musicPlayerRef.current) {
-      musicPlayerRef.current.fadeOut(600);
+      musicPlayerRef.current.pause();
     }
   };
 
   const handleVideoPause = () => {
     if (musicPlayerRef.current) {
-      musicPlayerRef.current.fadeIn(800);
+      musicPlayerRef.current.play();
     }
   };
 
   const handleVoicePlay = () => {
     if (musicPlayerRef.current) {
-      musicPlayerRef.current.duck(0.12); // Lowers music volume to 12% while keeping it playing
+      musicPlayerRef.current.duck(0.12);
     }
   };
 
   const handleVoicePause = () => {
     if (musicPlayerRef.current) {
-      musicPlayerRef.current.unduck(0.75); // Restores back to 75%
+      musicPlayerRef.current.unduck(0.75);
     }
   };
 
