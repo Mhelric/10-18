@@ -7,6 +7,7 @@ import PrologueChapter from "./components/chapters/PrologueChapter";
 import ChatChapter from "./components/chapters/ChatChapter";
 import MemoriesChapter from "./components/chapters/MemoriesChapter";
 import WallChapter from "./components/chapters/WallChapter";
+import SongChapter from "./components/chapters/SongChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
 
 export default function App() {
@@ -15,6 +16,18 @@ export default function App() {
   const handleGateUnlock = () => {
     if (musicPlayerRef.current) {
       musicPlayerRef.current.play();
+    }
+  };
+
+  const handleVideoPlay = () => {
+    if (musicPlayerRef.current) {
+      musicPlayerRef.current.fadeOut(600);
+    }
+  };
+
+  const handleVideoPause = () => {
+    if (musicPlayerRef.current) {
+      musicPlayerRef.current.fadeIn(800);
     }
   };
 
@@ -43,7 +56,13 @@ export default function App() {
           wallData={content.wall}
           metaData={content.wallMeta}
         />
-        <LetterChapter data={content.chapters[4]} />
+        <SongChapter
+          songData={content.song}
+          metaData={content.songMeta}
+          onVideoPlay={handleVideoPlay}
+          onVideoPause={handleVideoPause}
+        />
+        <LetterChapter data={content.chapters[5]} />
       </main>
     </div>
   );

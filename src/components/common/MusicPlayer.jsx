@@ -4,28 +4,83 @@ import { motion, useReducedMotion } from "framer-motion";
 const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const fadeIntervalRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
 
   const playAudio = () => {
     if (audioRef.current) {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch((err) => {
-        console.error("Audio playback error:", err);
-      });
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+      // Set default normal playback volume to 75%
+      audioRef.current.volume = 0.75;
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          console.error("Audio playback error:", err);
+        });
     }
   };
 
   const pauseAudio = () => {
     if (audioRef.current) {
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       audioRef.current.pause();
       setIsPlaying(false);
     }
   };
 
+  const fadeOut = (duration = 600) => {
+    if (!audioRef.current) return;
+    if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    const audio = audioRef.current;
+    const step = 0.05;
+    const intervalTime = duration / (audio.volume / step || 10);
+
+    fadeIntervalRef.current = setInterval(() => {
+      if (audio.volume > step) {
+        audio.volume = Math.max(0, audio.volume - step);
+      } else {
+        audio.volume = 0;
+        audio.pause();
+        clearInterval(fadeIntervalRef.current);
+      }
+    }, Math.max(20, intervalTime));
+  };
+
+  const fadeIn = (duration = 800) => {
+    if (!audioRef.current) return;
+    if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+    const audio = audioRef.current;
+    audio.volume = 0;
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        const step = 0.05;
+        const targetVolume = 0.75;
+        const intervalTime = duration / (targetVolume / step);
+
+        fadeIntervalRef.current = setInterval(() => {
+          if (audio.volume < targetVolume - step) {
+            audio.volume = Math.min(targetVolume, audio.volume + step);
+          } else {
+            audio.volume = targetVolume;
+            clearInterval(fadeIntervalRef.current);
+          }
+        }, Math.max(20, intervalTime));
+      })
+      .catch((err) => {
+        console.error("Audio resume error:", err);
+      });
+  };
+
   useImperativeHandle(ref, () => ({
     play: playAudio,
     pause: pauseAudio,
+    fadeOut,
+    fadeIn,
   }));
 
   const togglePlay = () => {
@@ -39,7 +94,7 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
   return (
     <div className="fixed top-4 right-4 z-50">
       <audio ref={audioRef} src={audioSrc} loop preload="none" />
-      
+
       <motion.button
         type="button"
         onClick={togglePlay}
@@ -50,9 +105,7 @@ const MusicPlayer = forwardRef(function MusicPlayer({ audioSrc }, ref) {
         <span className="font-handwriting text-sm text-rose">
           {isPlaying ? "playing" : "our song"}
         </span>
-        <span className="text-xs">
-          {isPlaying ? "🔊" : "🔇"}
-        </span>
+        <span className="text-xs">{isPlaying ? "🔊" : "🔇"}</span>
       </motion.button>
     </div>
   );

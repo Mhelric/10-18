@@ -1,3 +1,10 @@
+export const song = {
+  title: "Harana",
+  audio: "/audio/our-song.mp3",
+  youtubeId: "hJVt_uPjCYI",
+  poster: "/photos/harana-poster.webp",
+};
+
 export const wall = [
   { id: 1, photo: "/photos/wall-1.webp", note: "My first drawing of you", date: "OCT 2025" },
   { id: 2, photo: "/photos/wall-2.webp", note: "The first pic that made me realize how pretty you really are", date: "NOV 2025" },
@@ -161,6 +168,14 @@ export const content = {
     hintText: "Tap a photo to flip",
   },
   wall,
+  song,
+  songMeta: {
+    chapterTag: "Chapter 05 • Harana",
+    title: "A Melody for Loveyyy",
+    subtitle: "Turn up your volume and press play",
+    watchOnYoutubeText: "Watch on YouTube",
+    continueCue: "to the letter",
+  },
   chapters: [
     {
       id: "prologue",
@@ -191,8 +206,15 @@ export const content = {
       subtitle: "Snapshots of our heart",
     },
     {
-      id: "letter",
+      id: "song",
       number: "05",
+      dateStamp: "OCTOBER 18, 2026",
+      title: "A Song for You",
+      subtitle: "A melody for our first year",
+    },
+    {
+      id: "letter",
+      number: "06",
       dateStamp: "OCTOBER 18, 2026",
       title: "For My Loveyyy",
       subtitle: "A letter from my heart to yours",

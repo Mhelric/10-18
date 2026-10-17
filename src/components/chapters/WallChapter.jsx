@@ -157,13 +157,13 @@ export default function WallChapter({ wallData, metaData }) {
         <button
           type="button"
           onClick={() => {
-            const next = document.getElementById("letter");
+            const next = document.getElementById("song") || document.getElementById("letter");
             if (next) next.scrollIntoView({ behavior: "smooth" });
           }}
           className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
         >
           <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">
-            to the letter
+            to our song
           </span>
           <svg
             className="w-4 h-4 mt-1 group-hover:translate-y-0.5 transition-transform"
