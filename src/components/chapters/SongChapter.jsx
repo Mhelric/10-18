@@ -185,22 +185,31 @@ export default function SongChapter({ songData, metaData, onVideoPlay, onVideoPa
         </div>
       </div>
 
-      {/* Scroll indicator to Inside Jokes */}
       {/* Scroll indicator to Chapter 6 (Inside Jokes) */}
-      <div className="w-full flex flex-col items-center text-center pt-6 pb-safe">
+      <div className="relative z-30 w-full flex flex-col items-center text-center pt-8 pb-safe touch-manipulation">
         <button
           type="button"
-          onClick={() => {
-            const next = document.getElementById("jokes") || document.getElementById("letter");
-            if (next) next.scrollIntoView({ behavior: "smooth" });
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const target = document.getElementById("jokes") || document.getElementById("letter");
+            if (target) {
+              const targetY = target.getBoundingClientRect().top + window.pageYOffset;
+              window.scrollTo({ top: targetY, behavior: "smooth" });
+              try {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+              } catch (_) {
+                target.scrollIntoView(true);
+              }
+            }
           }}
-          className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
+          className="flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
         >
-          <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">
+          <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
             {metaData?.continueCue || "to our inside jokes"}
           </span>
           <svg
-            className="w-4 h-4 mt-1 group-hover:translate-y-0.5 transition-transform"
+            className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
