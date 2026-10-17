@@ -79,7 +79,6 @@ export default function WallChapter({ wallData, metaData }) {
             >
               {/* Polaroid Card Wrapper */}
               <div className="relative w-[155px] sm:w-[165px] bg-[#FAF6EE] p-2 pb-5 rounded-xs shadow-[0_4px_15px_rgba(43,18,51,0.12)] border border-blush/50">
-                
                 {/* Washi Masking Tape Top Pin */}
                 <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-10 h-3 bg-[#EADFCA]/90 shadow-xs border-l border-r border-black/5 rotate-[1.5deg] z-20 pointer-events-none" />
 
@@ -152,12 +151,12 @@ export default function WallChapter({ wallData, metaData }) {
         })}
       </div>
 
-      {/* Gentle Scroll Indicator to Letter Chapter */}
+      {/* Gentle Scroll Indicator to Chapter 5 (Song Chapter) */}
       <div className="w-full flex flex-col items-center text-center pt-6 pb-safe">
         <button
           type="button"
           onClick={() => {
-            const next = document.getElementById("song") || document.getElementById("letter");
+            const next = document.getElementById("song");
             if (next) next.scrollIntoView({ behavior: "smooth" });
           }}
           className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"

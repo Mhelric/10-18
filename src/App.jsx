@@ -8,6 +8,7 @@ import ChatChapter from "./components/chapters/ChatChapter";
 import MemoriesChapter from "./components/chapters/MemoriesChapter";
 import WallChapter from "./components/chapters/WallChapter";
 import SongChapter from "./components/chapters/SongChapter";
+import JokesChapter from "./components/chapters/JokesChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
 
 export default function App() {
@@ -62,7 +63,11 @@ export default function App() {
           onVideoPlay={handleVideoPlay}
           onVideoPause={handleVideoPause}
         />
-        <LetterChapter data={content.chapters[5]} />
+        <JokesChapter
+          jokesData={content.insideJokes}
+          metaData={content.jokesMeta}
+        />
+        <LetterChapter data={content.chapters[6]} />
       </main>
     </div>
   );

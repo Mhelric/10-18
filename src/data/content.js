@@ -5,6 +5,17 @@ export const song = {
   poster: "/photos/harana-poster.webp",
 };
 
+export const insideJokes = [
+  { icon: "🌙", title: "Anong oras na?", text: "Translation: matulog ka na, Mhel." },
+  { icon: "💋", title: "Sabay na halik sa phone", text: "Same second, every call." },
+  { icon: "⏳", title: "3... 2... 1...", text: "The countdown when I have to repeat myself." },
+  { icon: "🌶️", title: "Suka, asin, at sili", text: "Your fruit order. Still the strangest, still my favorite." },
+  { icon: "👶", title: "Calfric & Jheira", text: "The names are ready. The kids aren't yet." },
+  { icon: "🐄", title: "Cow jokes", text: "Corny. You pretend to hate them." },
+  { icon: "😴", title: "Sleepcalls", text: "You lose to sleep every time. I win by watching." },
+  { icon: "🍜", title: "Ano tara?", text: "The two words that start every plan." }
+];
+
 export const wall = [
   { id: 1, photo: "/photos/wall-1.webp", note: "My first drawing of you", date: "OCT 2025" },
   { id: 2, photo: "/photos/wall-2.webp", note: "The first pic that made me realize how pretty you really are", date: "NOV 2025" },
@@ -174,7 +185,7 @@ export const content = {
     title: "A Melody for Loveyyy",
     subtitle: "Turn up your volume and press play",
     watchOnYoutubeText: "Watch on YouTube",
-    continueCue: "to the letter",
+    continueCue: "to our inside jokes",
   },
   chapters: [
     {
@@ -215,6 +226,65 @@ export const content = {
     {
       id: "letter",
       number: "06",
+      dateStamp: "OCTOBER 18, 2026",
+      title: "For My Loveyyy",
+      subtitle: "A letter from my heart to yours",
+    },
+  ],
+  jokesMeta: {
+    chapterTag: "Chapter 06 • Inside Jokes",
+    title: "Things Only We Know",
+    subtitle: "Tap to collect our secret memories",
+    counterLabel: "Collected",
+    completionMessage: "You found them all. Of course you did.",
+  },
+  insideJokes,
+  chapters: [
+    {
+      id: "prologue",
+      number: "01",
+      dateStamp: "OCTOBER 18, 2025",
+      title: "Where It All Began",
+      subtitle: "The day our orbits crossed",
+    },
+    {
+      id: "chat",
+      number: "02",
+      dateStamp: "OCTOBER 18, 2025",
+      title: "How It Began",
+      subtitle: "Six little messages",
+    },
+    {
+      id: "memories",
+      number: "03",
+      dateStamp: "OCTOBER 2025 – OCTOBER 2026",
+      title: "The Timeline",
+      subtitle: "Pieces of ordinary magic",
+    },
+    {
+      id: "wall",
+      number: "04",
+      dateStamp: "YEAR ONE",
+      title: "Polaroid Wall",
+      subtitle: "Snapshots of our heart",
+    },
+    {
+      id: "song",
+      number: "05",
+      dateStamp: "OCTOBER 18, 2026",
+      title: "A Song for You",
+      subtitle: "A melody for our first year",
+    },
+    {
+      id: "jokes",
+      number: "06",
+      dateStamp: "SECRET ARCHIVE",
+      title: "Things Only We Know",
+      subtitle: "Our inside jokes and rituals",
+    },
+    {
+      id: "letter",
+      number: "07",
       dateStamp: "OCTOBER 18, 2026",
       title: "For My Loveyyy",
       subtitle: "A letter from my heart to yours",
