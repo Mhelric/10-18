@@ -4,7 +4,9 @@ import BackgroundAmbience from "./components/common/BackgroundAmbience";
 import MusicPlayer from "./components/common/MusicPlayer";
 import GateChapter from "./components/chapters/GateChapter";
 import PrologueChapter from "./components/chapters/PrologueChapter";
+import ChatChapter from "./components/chapters/ChatChapter";
 import MemoriesChapter from "./components/chapters/MemoriesChapter";
+import WallChapter from "./components/chapters/WallChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
 
 export default function App() {
@@ -28,9 +30,20 @@ export default function App() {
           targetDate={content.meta.targetUnlockDate}
           onUnlockSuccess={handleGateUnlock}
         />
-        <PrologueChapter data={content.chapters[0]} />
-        <MemoriesChapter data={content.chapters[1]} />
-        <LetterChapter data={content.chapters[2]} />
+        <PrologueChapter
+          data={content.chapters[0]}
+          prologueData={content.prologue}
+        />
+        <ChatChapter chatData={content.firstChat} />
+        <MemoriesChapter
+          timelineData={content.timeline}
+          metaData={content.timelineMeta}
+        />
+        <WallChapter
+          wallData={content.wall}
+          metaData={content.wallMeta}
+        />
+        <LetterChapter data={content.chapters[4]} />
       </main>
     </div>
   );
