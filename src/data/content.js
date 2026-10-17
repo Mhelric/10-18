@@ -552,8 +552,8 @@ export const content = {
   },
   gate: {
     locationLabel: "Opening in Romblon on Oct 18",
-    clue: "Pangalawang baby natin",
-    riddleClue: "Pangalawang baby natin",
+    clue: "Favorite phrase mo lovey",
+    riddleClue: "Favorite phrase mo lovey",
     password: "ano tara?",
     secretWord: "ano tara?",
     errorMascot: "/art/error.png",
