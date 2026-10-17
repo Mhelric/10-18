@@ -13,17 +13,14 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
   const [errorState, setErrorState] = useState({ active: false, message: "" });
   const [errorIndex, setErrorIndex] = useState(0);
 
-  // Time & Preview checking
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const isPreview = params.get("preview") === "1";
     const targetTime = new Date(targetDate).getTime();
 
     const checkTime = () => {
       const now = new Date().getTime();
       const difference = targetTime - now;
 
-      if (isPreview || difference <= 0) {
+      if (difference <= 0) {
         setIsLockedByTime(false);
         return true;
       }
@@ -38,7 +35,7 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
     };
 
     const isPast = checkTime();
-    if (!isPast && !isPreview) {
+    if (!isPast) {
       const timer = setInterval(() => {
         const passed = checkTime();
         if (passed) clearInterval(timer);
@@ -58,23 +55,18 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
       setErrorState({ active: false, message: "" });
       setIsUnlocked(true);
 
-      // 1. Wax seal cracks and pops (0ms - 400ms)
-      // 2. Top flap folds all the way open (400ms)
       setTimeout(() => {
         setIsFlapOpen(true);
       }, 400);
 
-      // 3. Inner letter emerges smoothly from inside the pocket (1000ms)
       setTimeout(() => {
         setIsLetterRevealed(true);
       }, 1000);
 
-      // 4. Start romantic soundtrack
       if (onUnlockSuccess) {
         onUnlockSuccess();
       }
 
-      // 5. Scroll smoothly down to the Prologue
       setTimeout(() => {
         const nextSection = document.getElementById("prologue");
         if (nextSection) {
@@ -108,17 +100,13 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
         </h1>
       </motion.div>
 
-      {/* ============================================================ */}
-      {/* ENVELOPE STAGE (310px x 190px)                                */}
-      {/* ============================================================ */}
+      {/* ENVELOPE STAGE */}
       <div 
         className="relative w-[310px] h-[190px] mb-8"
         style={{ perspective: "1200px" }}
       >
-        {/* Layer 0: Inside Backplate */}
         <div className="absolute inset-0 w-full h-full bg-[#D4C3A6] rounded-md shadow-lg z-0" />
 
-        {/* Layer 5 (When open) or Layer 30 (When closed): Top Triangle Flap */}
         <motion.div
           className="absolute top-0 left-0 w-full h-[95px] origin-top pointer-events-none"
           initial={false}
@@ -129,7 +117,6 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
           transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          {/* Outer flap face (visible when closed) */}
           <div
             className="absolute inset-0 w-full h-full filter drop-shadow-[0_3px_5px_rgba(43,18,51,0.12)]"
             style={{
@@ -138,19 +125,17 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
               backfaceVisibility: "hidden",
             }}
           />
-          {/* Inner flap face (visible when folded open behind the letter) */}
           <div
             className="absolute inset-0 w-full h-full"
             style={{
               clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-              backgroundColor: "#DC run-in #D6C4A6",
+              backgroundColor: "#D6C4A6",
               transform: "rotateX(180deg)",
               backfaceVisibility: "hidden",
             }}
           />
         </motion.div>
 
-        {/* Layer 10: The Inner Letter (Tucked inside the pocket, slides up) */}
         <motion.div
           initial={{ y: 0, opacity: 0 }}
           animate={
@@ -172,10 +157,7 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
           </span>
         </motion.div>
 
-        {/* Layer 20: Front Pocket Flaps (Left, Right, Bottom) */}
-        {/* These sit IN FRONT of the letter so the letter comes OUT of the pocket */}
         <div className="absolute inset-0 w-full h-full z-20 pointer-events-none rounded-md overflow-hidden">
-          {/* Left Side Flap */}
           <div
             className="absolute inset-0"
             style={{
@@ -183,7 +165,6 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
               backgroundColor: "#DFD0B5",
             }}
           />
-          {/* Right Side Flap */}
           <div
             className="absolute inset-0"
             style={{
@@ -191,7 +172,6 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
               backgroundColor: "#D7C7AB",
             }}
           />
-          {/* Bottom Flap */}
           <div
             className="absolute inset-0 filter drop-shadow-[0_-2px_4px_rgba(43,18,51,0.06)]"
             style={{
@@ -201,7 +181,6 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
           />
         </div>
 
-        {/* Wax Seal (Layer 40 when closed) */}
         <div className="absolute top-[95px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none">
           <motion.div
             initial={false}
@@ -225,14 +204,12 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
         </div>
       </div>
 
-      {/* ============================================================ */}
-      {/* INPUT / CLUE / FEEDBACK AREA                                 */}
-      {/* ============================================================ */}
+      {/* INPUT / COUNTDOWN SECTION */}
       <div className="w-full max-w-[320px] flex flex-col items-center">
         {isLockedByTime ? (
           <div className="flex flex-col items-center space-y-3 bg-[#FAF6EE]/85 border border-gold/30 rounded-xl p-5 shadow-sm w-full">
             <span className="font-typewriter text-[11px] uppercase tracking-wider text-burgundy/70">
-              Opening in Manila on Oct 18
+              {gateData.locationLabel || "Opening in Romblon on Oct 18"}
             </span>
             <div className="flex items-center gap-2 font-serif text-2xl text-burgundy">
               <div className="flex flex-col items-center">
@@ -261,7 +238,6 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
           </div>
         ) : (
           <div className="w-full flex flex-col items-center">
-            {/* Clue Quote */}
             <p className="font-serif italic text-base text-burgundy/90 mb-3 px-2">
               "{clueText}"
             </p>
@@ -316,8 +292,11 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
               <img
                 src={gateData.errorMascot}
                 alt="Thinking mascot"
+                width="56"
+                height="56"
                 className="w-14 h-14 object-contain drop-shadow"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
                 }}
@@ -339,8 +318,11 @@ export default function GateChapter({ gateData, targetDate, onUnlockSuccess }) {
               <img
                 src={gateData.successMascot}
                 alt="Celebration mascot"
+                width="56"
+                height="56"
                 className="w-14 h-14 object-contain drop-shadow"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
                 }}

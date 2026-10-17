@@ -2,10 +2,26 @@
 <html lang="en" class="h-full bg-cream">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover"
+    />
     <meta name="robots" content="noindex, nofollow" />
-    <title>365 Days with Loveyyy</title>
+    <title>Year One · Mhel & Jai</title>
     
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Year One · Mhel & Jai" />
+    <meta property="og:description" content="One year of ordinary magic and all our tomorrows." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_PH" />
+    
+    <!-- Inline SVG Favicon (Wax-Sealed Love Letter) -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='6' width='28' height='20' rx='3' fill='%23FAF6EE' stroke='%23C9A24B' stroke-width='1.5'/%3E%3Cpath d='M2 7l14 10L30 7' fill='none' stroke='%23C9A24B' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='17' r='4' fill='%234A1424'/%3E%3Cpath d='M16 15.5c-.5-.7-1.4-.7-1.8-.2-.4.4-.3 1.1.2 1.6l1.6 1.6 1.6-1.6c.5-.5.6-1.2.2-1.6-.4-.5-1.3-.5-1.8.2z' fill='%23C9A24B'/%3E%3C/svg%3E"
+    />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,8 +30,8 @@
       rel="stylesheet"
     />
   </head>
-  <body class="h-full text-burgundy selection:bg-rose/20 selection:text-burgundy">
-    <div id="root"></div>
+  <body class="h-full bg-cream text-burgundy selection:bg-rose/20 selection:text-burgundy overflow-x-hidden antialiased">
+    <div id="root" class="min-h-full overflow-x-hidden"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

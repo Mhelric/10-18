@@ -473,7 +473,7 @@ export const openWhenMeta = {
 // Finale Data (Chapter 10)
 // ==========================================
 export const finale = {
-  photo: "/photos/finale.webp",
+  photo: "/photos/finale.gif",
   title: "Happy 1st Anniversary, Loveyyy",
   subtitle: "Mhel & Jai · Oct 18, 2025 → ∞",
   finalLine: "See you on Oct 18, 2027.",
@@ -490,7 +490,7 @@ export const finale = {
 export const content = {
   meta: {
     anniversaryDate: "2025-10-18",
-    targetUnlockDate: "2026-10-18T00:00:00+08:00",
+    targetUnlockDate: "2026-10-17T21:39:00+08:00", // Exactly 21:39 Manila time
     herName: "Jaira",
     herNickname: "Loveyyy",
     hisName: "Mhel",
@@ -498,6 +498,7 @@ export const content = {
     audioTrack: "/audio/background-theme.mp3",
   },
   gate: {
+    locationLabel: "Opening in Romblon on Oct 18",
     clue: "Pangalawang baby natin",
     riddleClue: "Pangalawang baby natin",
     password: "java",

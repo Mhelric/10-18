@@ -55,9 +55,8 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
   return (
     <section
       id="letter"
-      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-16 flex flex-col items-center select-none overflow-hidden pb-safe"
+      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-14 flex flex-col items-center select-none overflow-hidden pb-safe"
     >
-      {/* Optional voice note audio */}
       {data.voice && (
         <audio
           ref={voiceAudioRef}
@@ -68,89 +67,107 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
         />
       )}
 
-      {/* Header Tag */}
+      {/* Chapter Marker Header */}
       <div className="w-full flex flex-col items-center text-center mb-6">
-        <span className="font-typewriter text-[10px] tracking-[0.3em] uppercase text-gold/80 mb-1">
+        <span className="font-typewriter text-[10px] tracking-[0.3em] uppercase text-gold/80 mb-1.5">
           Chapter 08 • The Letter
         </span>
-        <h2 className="font-serif text-3xl sm:text-4xl text-burgundy font-normal">
-          {data.title || "The Letter"}
+
+        {/* Clean, balanced title with normal lining digits */}
+        <h2 className="font-serif text-3xl sm:text-4xl text-burgundy font-normal tracking-wide [font-variant-numeric:lining-nums]">
+          Happy 1st Anniversary, Loveyyy
         </h2>
-        <span className="font-typewriter text-[11px] text-rose tracking-wider uppercase mt-1">
+
+        {/* Delicate Heart Icon */}
+        <span className="text-burgundy text-sm my-1 select-none">♥</span>
+
+        <span className="font-typewriter text-[10px] sm:text-[11px] text-burgundy/75 tracking-[0.2em] uppercase">
           {data.dateStamp} · {data.subtitle}
         </span>
       </div>
 
-      {/* Closed Envelope Stage */}
       <AnimatePresence mode="wait">
         {!isOpen ? (
+          /* ============================================================ */
+          /* REALISTIC CLOSED ENVELOPE (Matches Chapter 0 Quality)        */
+          /* ============================================================ */
           <motion.div
             key="envelope-closed"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.5 }}
-            className="w-full max-w-[340px] my-auto flex flex-col items-center cursor-pointer"
+            transition={{ duration: 0.45 }}
+            className="w-full max-w-[320px] my-auto flex flex-col items-center cursor-pointer"
             onClick={handleOpenEnvelope}
           >
-            {/* Envelope Body */}
             <div
-              className="relative w-[300px] h-[190px] bg-[#EFE3CF] rounded-md shadow-xl border border-blush/60 flex items-center justify-center overflow-hidden group"
+              className="relative w-[300px] sm:w-[310px] h-[190px] rounded-md shadow-xl border border-[#D5C4A7] bg-[#E5D7BF] overflow-hidden"
               style={{ perspective: "1000px" }}
             >
-              <div className="absolute inset-0 bg-[#E8DBC3]" />
+              {/* Inside Backplate */}
+              <div className="absolute inset-0 bg-[#D4C3A6]" />
+
+              {/* Side & Bottom Pocket Flaps */}
+              <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    clipPath: "polygon(0 0, 0 100%, 50% 50%)",
+                    backgroundColor: "#DFD0B5",
+                  }}
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    clipPath: "polygon(100% 0, 100% 100%, 50% 50%)",
+                    backgroundColor: "#D7C7AB",
+                  }}
+                />
+                <div
+                  className="absolute inset-0 filter drop-shadow-[0_-2px_4px_rgba(43,18,51,0.08)]"
+                  style={{
+                    clipPath: "polygon(0 100%, 100% 100%, 50% 48%)",
+                    backgroundColor: "#EFE2C9",
+                  }}
+                />
+              </div>
+
+              {/* Top Triangle Flap */}
               <div
-                className="absolute inset-0"
-                style={{
-                  clipPath: "polygon(0 0, 0 100%, 50% 50%)",
-                  backgroundColor: "#DFD0B5",
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  clipPath: "polygon(100% 0, 100% 100%, 50% 50%)",
-                  backgroundColor: "#D7C7AB",
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  clipPath: "polygon(0 100%, 100% 100%, 50% 48%)",
-                  backgroundColor: "#EFE2C9",
-                }}
-              />
-              <div
-                className="absolute top-0 left-0 w-full h-[95px] filter drop-shadow-[0_2px_4px_rgba(43,18,51,0.12)]"
+                className="absolute top-0 left-0 w-full h-[95px] filter drop-shadow-[0_3px_5px_rgba(43,18,51,0.15)] pointer-events-none"
                 style={{
                   clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                  backgroundColor: "#E2D3B8",
+                  backgroundColor: "#E8DBC3",
                 }}
               />
 
-              {/* Wax Seal */}
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.94 }}
-                className="absolute top-[95px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-gradient-to-br from-[#5E1A2F] via-burgundy to-[#300B17] border-2 border-gold/80 shadow-[0_4px_14px_rgba(74,20,36,0.4)] flex items-center justify-center text-gold cursor-pointer"
-              >
-                <div className="absolute inset-[3px] rounded-full border border-gold/30 pointer-events-none" />
-                <span className="font-serif italic font-bold text-base tracking-wider drop-shadow-sm">
-                  {data.sealInitials || "M&J"}
-                </span>
-              </motion.div>
+              {/* Wax Seal - Centered directly over the V-point */}
+              <div className="absolute top-[95px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none">
+                <motion.div
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.94 }}
+                  className="w-[50px] h-[50px] rounded-full bg-gradient-to-br from-[#5E1A2F] via-burgundy to-[#300B17] border-2 border-gold/75 shadow-[0_4px_12px_rgba(74,20,36,0.35)] flex items-center justify-center text-gold"
+                >
+                  <div className="absolute inset-[3px] rounded-full border border-gold/30 pointer-events-none" />
+                  <span className="font-serif italic font-bold text-base tracking-wider drop-shadow-sm select-none">
+                    {data.sealInitials || "M&J"}
+                  </span>
+                </motion.div>
+              </div>
             </div>
 
             <motion.p
-              animate={shouldReduceMotion ? {} : { opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              animate={shouldReduceMotion ? {} : { opacity: [0.65, 1, 0.65] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
               className="font-handwriting text-lg text-rose mt-5"
             >
               {data.envelopeHint || "Tap to open my letter for you"}
             </motion.p>
           </motion.div>
         ) : (
-          /* Unfolded Cream Lined Stationery Sheet */
+          /* ============================================================ */
+          /* UNFOLDED CREAM LINED STATIONERY SHEET                        */
+          /* ============================================================ */
           <motion.div
             key="envelope-opened"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
@@ -211,7 +228,6 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
                     {p}
                   </motion.p>
 
-                  {/* Rose Heart Divider */}
                   {idx < paragraphs.length - 1 && (
                     <div className="my-6 flex items-center justify-center gap-2 text-rose select-none opacity-85">
                       <span className="text-xs">♡</span>
@@ -223,7 +239,7 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
               ))}
             </div>
 
-            {/* Handwritten Signature with Hand-Drawn Heart */}
+            {/* Handwritten Signature */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -240,7 +256,6 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
                 </span>
               ))}
 
-              {/* Hand-Drawn Heart SVG */}
               <div className="mt-2 text-rose">
                 <svg
                   className="w-7 h-7 filter drop-shadow-xs"

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
-export default function FinaleChapter({ finaleData = {} }) {
+export default function FinaleChapter({ finaleData = {}, onReset }) {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
@@ -9,10 +9,9 @@ export default function FinaleChapter({ finaleData = {} }) {
   const [hasImageError, setHasImageError] = useState(false);
 
   const isInView = useInView(sectionRef, { amount: 0.25, once: false });
-
   const data = finaleData;
 
-  // 1. Slow, organic petal & heart bloom animation on canvas
+  // Gentle heart & petal bloom animation on canvas
   useEffect(() => {
     isVisibleRef.current = isInView;
     if (shouldReduceMotion || !isInView) return;
@@ -30,7 +29,6 @@ export default function FinaleChapter({ finaleData = {} }) {
     setCanvasSize();
     window.addEventListener("resize", setCanvasSize);
 
-    // Capped particle count for smooth mobile performance
     const isMobile = window.innerWidth < 640;
     const particleCount = isMobile ? 18 : 28;
 
@@ -48,10 +46,10 @@ export default function FinaleChapter({ finaleData = {} }) {
       type: Math.random() > 0.45 ? "petal" : "heart",
       color:
         Math.random() > 0.5
-          ? "rgba(201, 120, 138, " // rose
+          ? "rgba(201, 120, 138, "
           : Math.random() > 0.5
-          ? "rgba(244, 214, 208, " // blush
-          : "rgba(201, 162, 75, ", // gold
+          ? "rgba(244, 214, 208, "
+          : "rgba(201, 162, 75, ",
     }));
 
     const drawHeart = (c, x, y, size, color, alpha, rot) => {
@@ -120,8 +118,17 @@ export default function FinaleChapter({ finaleData = {} }) {
     };
   }, [isInView, shouldReduceMotion]);
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  // Direct smooth scroll to Chapter 1: The Beginning (#prologue)
+  const handleReadAgain = () => {
+    if (onReset) {
+      onReset();
+    }
+    const prologueSection = document.getElementById("prologue");
+    if (prologueSection) {
+      prologueSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -130,13 +137,16 @@ export default function FinaleChapter({ finaleData = {} }) {
       ref={sectionRef}
       className="relative min-h-[100dvh] w-full flex flex-col justify-end items-center px-6 py-12 select-none overflow-hidden pb-safe"
     >
-      {/* Full-bleed background photo / fallback placeholder */}
+      {/* Full-bleed background photo / fallback */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {!hasImageError && data.photo ? (
           <img
             src={data.photo}
             alt={data.title}
+            width="1080"
+            height="1920"
             loading="lazy"
+            decoding="async"
             onError={() => setHasImageError(true)}
             className="w-full h-full object-cover object-center filter brightness-[0.82] contrast-[1.05]"
           />
@@ -146,13 +156,10 @@ export default function FinaleChapter({ finaleData = {} }) {
             <span className="font-serif italic text-base text-cream/70">
               {data.photoPlaceholder || "Our Forever Picture"}
             </span>
-            <span className="font-typewriter text-[9px] uppercase tracking-widest text-gold/60 mt-1">
-              /photos/finale.webp
-            </span>
           </div>
         )}
 
-        {/* Soft Burgundy-to-Transparent Gradient Vignette Overlay for Text Readability */}
+        {/* Readability Vignette & Gradients */}
         <div className="absolute inset-0 bg-gradient-to-t from-burgundy via-burgundy/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
       </div>
@@ -163,7 +170,7 @@ export default function FinaleChapter({ finaleData = {} }) {
         className="pointer-events-none absolute inset-0 z-20 h-full w-full"
       />
 
-      {/* Foreground Content Stack */}
+      {/* Content Stack */}
       <div className="relative z-30 w-full max-w-[360px] flex flex-col items-center text-center mt-auto space-y-4">
         {/* Subtitle in Special Elite */}
         <motion.span
@@ -176,7 +183,7 @@ export default function FinaleChapter({ finaleData = {} }) {
           {data.subtitle}
         </motion.span>
 
-        {/* Title in script font (Caveat) */}
+        {/* Title in Caveat Script */}
         <motion.h1
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, y: 14 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -187,7 +194,7 @@ export default function FinaleChapter({ finaleData = {} }) {
           {data.title}
         </motion.h1>
 
-        {/* Final Line in Handwriting */}
+        {/* Final Line */}
         <motion.p
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -198,7 +205,7 @@ export default function FinaleChapter({ finaleData = {} }) {
           {data.finalLine}
         </motion.p>
 
-        {/* Action Controls */}
+        {/* Buttons */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -206,16 +213,14 @@ export default function FinaleChapter({ finaleData = {} }) {
           transition={{ duration: 0.9, delay: 0.45 }}
           className="w-full flex flex-col items-center pt-6 space-y-3"
         >
-          {/* Read it again from the start button */}
           <button
             type="button"
-            onClick={handleScrollToTop}
+            onClick={handleReadAgain}
             className="w-full max-w-[280px] py-3 rounded-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] text-burgundy font-typewriter text-xs uppercase tracking-[0.2em] shadow-lg border border-gold/60 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
             {data.readAgainButtonText || "Read it again from the start"}
           </button>
 
-          {/* Small link to oldSite */}
           {data.oldSite && (
             <a
               href={data.oldSite}

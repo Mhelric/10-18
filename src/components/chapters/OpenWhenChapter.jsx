@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 function computeDaysRemainingManila(unlockAt) {
@@ -34,18 +34,12 @@ function computeDaysRemainingManila(unlockAt) {
 export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
   const shouldReduceMotion = useReducedMotion();
 
-  // Check URL query flag ?preview=1 to unlock all envelopes
-  const isPreview = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return new URLSearchParams(window.location.search).get("preview") === "1";
-  }, []);
-
   const [openedIds, setOpenedIds] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
   const [shakeId, setShakeId] = useState(null);
 
   const handleEnvelopeTap = (item, index, isLocked) => {
-    if (isLocked && !isPreview) {
+    if (isLocked) {
       setShakeId(index);
       setTimeout(() => setShakeId(null), 600);
       return;
@@ -88,7 +82,7 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
       <div className="w-full max-w-[390px] my-auto flex gap-4 overflow-x-auto snap-x snap-mandatory py-6 px-4 no-scrollbar">
         {openWhenData.map((item, index) => {
           const daysLeft = item.unlockAt ? computeDaysRemainingManila(item.unlockAt) : 0;
-          const isLocked = !isPreview && item.unlockAt && daysLeft > 0;
+          const isLocked = Boolean(item.unlockAt && daysLeft > 0);
           const isOpened = Boolean(openedIds[index]);
           const isShaking = shakeId === index;
 
