@@ -336,8 +336,8 @@ export const reasons = [
   "I love that you typed \"paturo\" to see my drawings and started it all",
   "I love that you let me court you and gave me the first yes",
   "I love spending Christmas and New Year together across a single video call screen",
-  "I love that we named our first baby \"Soup\"",
-  "I love that we named our second baby \"Java\"",
+  "I love that we named our babies \"Soup\", \"Java\", \"Jabaw\", \"Wiggles\"",
+  "I love that you motivated me to start being fit and workout",
   "I love that you gave me the \"yes\" on your birthday",
   "I love that you talked with my mom on video call and became one of my two favorite women on screen",
   "I love how we always find our way back to each other sweeter after every storm",
@@ -382,7 +382,7 @@ export const reasons = [
   "I love that you share your naughtiest and most playful thoughts with me",
   "I love your funny obsession with dipping fruits in salt, vinegar, and chili",
   "I love how you sweetly scold me to make sure I get enough sleep",
-  "I love hearing you sing softly during our calls",
+  "I love hearing you sing",
   "I love how perfectly in sync our hearts are even miles apart",
   "I love how infectious and joyful your laughter sounds",
   "I love dreaming about the exact layout of the house we will build together",
@@ -418,6 +418,70 @@ export const reasonsFinale = "I love your whole self, everything about you, ever
 export const loveNotes = [
   ...reasons,
 ];
+
+// ==========================================
+// Letter Data (Chapter 08)
+// ==========================================
+export const letter = {
+  dateStamp: "OCTOBER 18, 2026",
+  subtitle: "from your Meltot",
+  title: "HAPPY 1ST ANNIVERSARY LOVEY ♥",
+  envelopeHint: "Tap to open my letter for you",
+  sealInitials: "M&J",
+  voice: "/audio/voice-message.mp3",
+  voiceButtonLabel: "Hear it in my voice",
+  voicePlayingLabel: "Listening to my voice...",
+  continueCue: "to open when",
+  paragraphs: [
+    `1 whole year... akalain mo yun lovey? Isang taon na pala mula nung gabing nag-chat ka sakin ng "paturo". Ang dami na nating napagdaanan noh? Alam mo ba lovey na hanggang ngayon, pag naaalala ko yung gabing yun, napapangiti pa din ako na parang tanga. Anim na chats lang yun lovey. Anim lang. "paturo", "paturo ng?", "art", tas tinanong mo ko kung ano ba gamot sa pagiging tamad, tas sagot ko lang "motivation" tapos nag-HAHAHAHHA pa ko. Hindi ko alam nun na yung simpleng sagot na yun pala yung magiging pinaka-totoong nasabi ko sa buong buhay ko, kasi simula nung gabing yun, ikaw na talaga yung naging motivation ko sa lahat lahat. Nagpapaturo ka lang ng art nun, pero ikaw pala yung magtuturo sakin kung paano magmahal nang totoo. :>`,
+    `Alam mo ba lovey na hindi ko makakalimutan yung November 10. Yung araw na pumayag kang ligawan kita. Hindi ko maexplain kung gaano ako kasaya nun, parang ang tagal ko na palang may hinihintay tapos bigla mo lang ibinigay sakin. Hindi pa tayo official nun, pero sa puso ko lovey, ikaw na talaga yun. Sa dami ng pwede mong piliin, pinili mo kong bigyan ng chance kahit alam mong immature pa ko at ang dami ko pang kailangang ayusin. Kaya hanggang ngayon lovey, sobrang thankful ako na hindi mo ko sinukuan agad. Promise yan, hindi ko sasayangin yung chance na yun.\n\nTas Christmas at New Year natin, magkalayo tayo pero magkasama sa video call. Para akong batang excited na excited ibigay sayo yung bracelet natin, yung una nating couple bracelet. Hanggang ngayon suot pa din natin lovey, hindi ko pa natatanggal kahit minsan. Kahit hindi kita mayakap nun, ramdam na ramdam ko pa din na kasama kita. Pinakamasayang Pasko ko yun, kahit sa maliit na screen lang tayo nagkita. Sobra sobra.`,
+    `Tapos dumating si Soup. January 20, pinangalanan natin ang panganay nating baby. Aaminin ko lovey, nung nakapili na tayo ng pangalan niya, naisip ko agad na "ay, may pamilya na pala ako" HAHAHA. Tas March 10, dumating naman si Java, kaya dalawa na sila. Ang saya saya ko lovey kasi kahit sa mga ganitong maliliit na bagay, ramdam kong tayo na talaga yung bubuo ng pamilya. Pareho tayong mahilig sa pusa, pareho tayong mga baliw sa kanila, kaya perfect match talaga tayo noh? Soon sina Calfric at Jheira naman ha po :>\n\nTas first Valentine's natin, binigyan kita ng website. Yung una kong ginawa para sayo. Gusto ko kasi na may isang maliit na lugar sa internet na pwede mong balikan lagi kapag gusto mong maramdaman na mahal na mahal ka ng boyfriend mo. Akalain mo lovey, ito na yung pangalawa, at mas pinaghirapan ko pa to, mas pinag-isipan ko pa, kasi hindi ako titigil gumawa ng mga bagay na ikakangiti mo. Kung binabasa mo to ngayon, ibig sabihin natapos mo na yung buong website. Sana lovey nagustuhan mo, kahit konti lang.`,
+    `Tas yung birthday mo lovey, April 27. Binigay ko sayo yung He's Into Her series kasi alam kong paborito mo yun, at kasi syempre... gusto kong maging yung bida na sobrang into sayo HAHAHA. Pero ikaw yung nagbigay ng pinakamagandang regalo sakin nung araw na yun. Yung "yes" mo. Yung araw na naging boyfriend mo na ko. Akala ko dati sa libro lang nangyayari yung ganung klase ng kilig, pero lovey, nangyari din pala sakin. Hindi ko makakalimutan yung araw na yun kahit kailan. Pinakamasuwerteng lalaki ako nung araw na yun, at hanggang ngayon, ako pa din.\n\nTas lovey, yung first time na nag-usap kayo ni mama sa video call, May 17. Aaminin ko po kinakabahan ako nun HAHAHA, pero nung nakita ko kayong magkausap at nagtatawanan, parang may gumaan sa dibdib ko. Dalawa sa pinakamahalagang babae sa buhay ko, magkasama sa isang maliit na screen. Tinuturing mo na din siyang nanay mo, at ramdam ko lovey na tinuturing ka na din niyang anak. Sobrang saya ko nun. Hindi ko to nasabi sayo nang maayos, kaya sinasabi ko na ngayon: thank you lovey, kasi hindi mo lang ako minahal, minahal mo din yung pamilya ko.\n\nTapos pagkatapos nun, May 27, first monthsary natin. 1 month pa lang tayo nun lovey, pero parang ang tagal tagal ko ng kilala yung pakiramdam ng may ikaw. Parang hindi ko na maalala kung paano ako dati bago ka dumating.`,
+    `Pero lovey, alam kong hindi puro saya ang taon na to. Ang dami din nating away, selosan, tampuhan. Minsan nasasaktan kita, minsan nasasaktan mo ko, minsan pareho pa tayong nagtitigasan. Yung mga selos mo lovey, nakakainis minsan pero cute din HAHAHA, kasi alam kong dahil yun sa mahal mo ko. Pero ito yung gusto kong malaman mo: sa bawat away natin, wala akong gabi na hindi ka pinili. Kahit ilang beses pa tayong magtampuhan, ikaw pa din ang gusto kong uwian. At sobrang proud ako satin lovey, kasi hindi tayo natutong sumuko, natutunan nating mag-ayos. Sorry po sa lahat ng mga panahong naging immature ako, at sobra sobrang salamat sa pag-intindi, sa pasensya, at sa pananatili mo. Pagkatapos ng bawat bagyo, mas lalo kitang minamahal. I really 2x mean that.\n\nGusto ko ding pasalamatan lahat ng maliliit na bagay na ginagawa mo, kahit siguro hindi mo napapansin. Yung pagagalitan mo ko pag puyat ako, yung "anong oras na?" mo na alam ko namang pinapatulog mo na ko HAHAHA, yung pagbibilang mo pag gusto mong ulitin ko yung sinabi ko, yung sabay nating paghalik sa phone sa call, yung pagkanta mo sakin, yung pag-aalala mo kung kumain na ba ko, yung paglaban mo sa antok para lang makausap pa ko, at yung pagkakatulog mo sa gitna ng kwentuhan natin kasi pagod na pagod ka na pero gusto mo pa din akong samahan. Lahat yun lovey, yun yung mga bagay na hindi ko mapapalitan ng kahit ano. Kapag nakakakita ako ng notification galing sayo, parang laging may party sa puso ko.\n\nSalamat din lovey kasi tinuruan mo ulit akong lumapit kay God. Alam kong Siya ang may gawa kung bakit tayo nagkakilala nung gabing yun, at nagpapasalamat ako sa Kanya araw-araw na ikaw ang ibinigay Niya sakin.`,
+    `Hanggang ngayon lovey, hindi pa kita nahahawakan, hindi pa kita nayayakap, hindi pa kita nahahalikan. Pero sa isang taon na to, ikaw na yung pinakamalapit na tao sakin sa mundo. Kaya sobrang excited ako sa araw na mangyari na lahat yun. Yung makapag-date na tayo, makapag-gala, makapag-holding hands, makakain ng mga paborito mong may suka, asin at sili HAHAHA. Yung makapunta tayo sa Japan na matagal na nating pinapangarap. Yung makilala ko na ng personal ang parents mo, at hingin ko mismo ang blessing nila para sayo. Yung makita kitang magmartsa sa graduation mo, tapos ako yung pinakamalakas na pumapalakpak sa likod. Lahat ng yan lovey, gusto kong gawin kasama ka. Gusto kong ikaw yung una ko sa lahat ng yan.\n\nSana pagdating ng araw, makapagpatayo tayo ng sarili nating bahay, may Soup at Java na naghihintay sa pinto, at may Calfric at Jheira na tumatakbo sa loob. Alam kong malayo pa yun, pero hindi ako nagmamadali basta kasama kita. Magpapakabuti ako lovey, magtatrabaho ako nang mabuti, magiging mas mabuting lalaki ako araw-araw, para sa future natin. Promise yan.`,
+    `Tas lovey isa pa, sa October 27, 6 months na tayo. Pagbigyan mo ko ulit na gumawa ng surprise ha po :>\n\nLovey ko, mahal na mahal kita, sa totoo lang hindi ko alam kung may salita pa ba para sa sobrang pagmamahal ko sayo. Salamat sa isang taon na to, salamat sa gabing nag-chat ka ng "paturo", at salamat sa bawat araw na pinili mo kong mahalin kahit hindi ako perpekto. Ikaw ang pinakamagandang nangyari sa buhay ko, Jaira Mesana Roxas, soon to be my wife Jaira Roxas Banaag. Tayong dalawa till death do us part. Happy 1st Anniversary since we met, lovey ko! Sana marami pa tayong anniversaries, monthsaries, tawanan, asaran, tampuhan, at pagmamahalan na pagsasamahan. My love for you will never end. I promise that. Muah! Muah! Muah! ♥`,
+  ],
+  signature: ["YOUR SCRUMPTIOUS DORKY BF", "MELTOT"],
+};
+
+// ==========================================
+// Open When Envelopes Data (Chapter 09)
+// ==========================================
+export const openWhen = [
+  { label: "Open when you miss me", text: "Look at your wrist, lovey. I'm right there with you. Bracelet and all." },
+  { label: "Open when we're fighting", text: "I'm sorry in advance. I'm still choosing you. Let's talk, then let's laugh after." },
+  { label: "Open when you can't sleep", text: "Sleepcall muna tayo. Tell me lovey, we'll call right away!" },
+  { label: "Open when you doubt yourself", text: "You are the best plot twist I've ever had. Believe me, I have evidence." },
+  { label: "Open on Oct 18, 2027", text: "passcode: future plans", unlockAt: "2027-10-18T00:00:00+08:00" },
+];
+
+export const openWhenMeta = {
+  chapterTag: "Chapter 09 • Open When",
+  title: "Letters for Later",
+  subtitle: "Swipe through and open whenever you need me",
+  swipeCue: "Swipe to browse envelopes",
+  countdownText: "Opens in {days} days",
+  countdownSingular: "Opens in 1 day",
+  openedBadge: "Opened",
+  sealInitials: "M&J",
+  closeButtonText: "Fold & Keep Safe",
+  lockedNotice: "Locked until Oct 18, 2027. Be patient, Loveyyy...",
+  continueCue: "to our finale",
+};
+
+// ==========================================
+// Finale Data (Chapter 10)
+// ==========================================
+export const finale = {
+  photo: "/photos/finale.webp",
+  title: "Happy 1st Anniversary, Loveyyy",
+  subtitle: "Mhel & Jai · Oct 18, 2025 → ∞",
+  finalLine: "See you on Oct 18, 2027.",
+  readAgainButtonText: "Read it again from the start",
+  oldSiteLinkText: "Chapter 0: where it began",
+  oldSite: "https://mhelric.github.io/2025-valentines/",
+  photoPlaceholder: "Our Forever Picture",
+};
 
 // ==========================================
 // 2. Main Content Export Single Source of Truth
@@ -593,6 +657,10 @@ export const content = {
   reasons,
   reasonsFinale,
   loveNotes,
+  letter,
+  openWhen,
+  openWhenMeta,
+  finale,
   chapters: [
     {
       id: "prologue",
@@ -649,6 +717,20 @@ export const content = {
       dateStamp: "OCTOBER 18, 2026",
       title: "For My Loveyyy",
       subtitle: "A letter from my heart to yours",
+    },
+    {
+      id: "open-when",
+      number: "09",
+      dateStamp: "FOR ALL TOMORROWS",
+      title: "Open When",
+      subtitle: "Envelopes for whenever you need me",
+    },
+    {
+      id: "finale",
+      number: "10",
+      dateStamp: "OCTOBER 18, 2026",
+      title: "The Finale",
+      subtitle: "To our forever and beyond",
     },
   ],
 };

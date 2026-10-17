@@ -11,6 +11,8 @@ import SongChapter from "./components/chapters/SongChapter";
 import JokesChapter from "./components/chapters/JokesChapter";
 import ReasonsChapter from "./components/chapters/ReasonsChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
+import OpenWhenChapter from "./components/chapters/OpenWhenChapter";
+import FinaleChapter from "./components/chapters/FinaleChapter";
 
 export default function App() {
   const musicPlayerRef = useRef(null);
@@ -32,11 +34,6 @@ export default function App() {
       musicPlayerRef.current.fadeIn(800);
     }
   };
-
-  // Find letter chapter by id rather than a hardcoded index
-  const letterData =
-    content.chapters.find((c) => c.id === "letter") ||
-    content.chapters[content.chapters.length - 1];
 
   return (
     <div className="relative min-h-screen bg-cream overflow-x-hidden selection:bg-blush selection:text-burgundy">
@@ -79,7 +76,16 @@ export default function App() {
           loveNotes={content.loveNotes}
           metaData={content.reasonsMeta}
         />
-        <LetterChapter data={letterData} />
+        <LetterChapter
+          letterData={content.letter}
+          onVoicePlay={handleVideoPlay}
+          onVoicePause={handleVideoPause}
+        />
+        <OpenWhenChapter
+          openWhenData={content.openWhen}
+          metaData={content.openWhenMeta}
+        />
+        <FinaleChapter finaleData={content.finale} />
       </main>
     </div>
   );
