@@ -16,7 +16,10 @@ import FinaleChapter from "./components/chapters/FinaleChapter";
 
 export default function App() {
   const musicPlayerRef = useRef(null);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  
+  // Set to true so you can scroll and test everything immediately.
+  // Set back to false right before you send her the link!
+  const [isUnlocked, setIsUnlocked] = useState(true);
 
   const handleGateUnlock = () => {
     setIsUnlocked(true);
@@ -57,17 +60,11 @@ export default function App() {
   };
 
   return (
-    <div
-      className={`relative bg-cream selection:bg-blush selection:text-burgundy ${
-        isUnlocked
-          ? "min-h-screen overflow-x-hidden"
-          : "h-[100dvh] overflow-hidden"
-      }`}
-    >
+    <div className="relative min-h-screen bg-cream selection:bg-blush selection:text-burgundy">
       <BackgroundAmbience />
       <MusicPlayer ref={musicPlayerRef} audioSrc={content.meta.audioTrack} />
 
-      <main className="relative z-10 mx-auto w-full max-w-[420px] min-h-screen flex flex-col bg-cream/40 shadow-[0_0_50px_rgba(43,18,51,0.04)] overflow-x-hidden">
+      <main className="relative z-10 mx-auto w-full max-w-[420px] min-h-screen flex flex-col bg-cream/40 shadow-[0_0_50px_rgba(43,18,51,0.04)]">
         <GateChapter
           gateData={content.gate}
           targetDate={content.meta.targetUnlockDate}
