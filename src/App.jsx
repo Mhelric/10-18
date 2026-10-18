@@ -13,6 +13,7 @@ import ReasonsChapter from "./components/chapters/ReasonsChapter";
 import LetterChapter from "./components/chapters/LetterChapter";
 import OpenWhenChapter from "./components/chapters/OpenWhenChapter";
 import FinaleChapter from "./components/chapters/FinaleChapter";
+import AnoTaraChapter from "./components/chapters/AnoTaraChapter";
 
 export default function App() {
   const musicPlayerRef = useRef(null);
@@ -90,6 +91,7 @@ export default function App() {
             <SongChapter songData={content.song} metaData={content.songMeta} onVideoPlay={handleVideoPlay} onVideoPause={handleVideoPause} />
             <JokesChapter jokesData={content.insideJokes} metaData={content.jokesMeta} />
             <ReasonsChapter reasonsData={content.reasons} finaleText={content.reasonsFinale} loveNotes={content.loveNotes} metaData={content.reasonsMeta} />
+            <AnoTaraChapter data={content.anoTara} />
             <LetterChapter letterData={content.letter} onVoicePlay={handleVoicePlay} onVoicePause={handleVoicePause} />
             <OpenWhenChapter openWhenData={content.openWhen} metaData={content.openWhenMeta} />
             <FinaleChapter finaleData={content.finale} onReset={handleScrollToPrologue} />

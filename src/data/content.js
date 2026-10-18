@@ -536,6 +536,20 @@ export const finale = {
   photoPlaceholder: "Our Forever Picture",
 };
 
+export const anoTara = {
+  question: "Ano Tara??? 😏",
+  yesLabel: "Yes",
+  noLabel: "No",
+  yesMessage: "Yeyyyy mamaya lovey tara, putukan na hehe",
+  dodgeLines: [
+    "Ay, mali ng pinindot 😌",
+    "Hindi pwede yan, lovey",
+    "Nahuli mo ba? Hindi 😏",
+    "Sure ka ba? Yes na lang",
+    "Sige subukan mo ulit HAHAHA"
+  ]
+};
+
 // ==========================================
 // 2. Main Content Export Single Source of Truth
 // ==========================================
@@ -543,7 +557,7 @@ export const finale = {
 export const content = {
   meta: {
     anniversaryDate: "2025-10-18",
-    targetUnlockDate: "2026-10-18T21:39:00+08:00", // Exactly 21:39 Manila time
+    targetUnlockDate: "2026-10-17T21:39:00+08:00", // Exactly 21:39 Manila time
     herName: "Jaira",
     herNickname: "Loveyyy",
     hisName: "Mhel",
@@ -768,7 +782,7 @@ export const content = {
     readAllButtonText: "Read all 365 reasons",
     overlayTitle: "365 Little Truths",
     overlaySubtitle: "Every reason why it will always be you",
-    continueCue: "to the letter",
+    continueCue: "one little question",
   },
   wall,
   song,
