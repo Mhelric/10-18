@@ -1,27 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 function computeDaysRemainingManila(unlockAt) {
   if (!unlockAt) return 0;
   const now = new Date();
 
-  const manilaNowStr = new Intl.DateTimeFormat("en-CA", {
+  const fmt = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Manila",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(now);
+  });
 
-  const targetDate = new Date(unlockAt);
-  const targetManilaStr = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Manila",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(targetDate);
-
-  const [y1, m1, d1] = manilaNowStr.split("-").map(Number);
-  const [y2, m2, d2] = targetManilaStr.split("-").map(Number);
+  const [y1, m1, d1] = fmt.format(now).split("-").map(Number);
+  const [y2, m2, d2] = fmt.format(new Date(unlockAt)).split("-").map(Number);
 
   const utcNow = Date.UTC(y1, m1 - 1, d1);
   const utcTarget = Date.UTC(y2, m2 - 1, d2);
@@ -36,12 +29,24 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
   const [openedIds, setOpenedIds] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
   const [shakeId, setShakeId] = useState(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [showLockedNotice, setShowLockedNotice] = useState(false);
+  const noticeTimer = useRef(null);
 
-  const handleEnvelopeTap = (item, index, isLocked) => {
-    if (isLocked) {
+  const items = openWhenData.map((item) => {
+    const daysLeft = item.unlockAt ? computeDaysRemainingManila(item.unlockAt) : 0;
+    return { ...item, daysLeft, isLocked: Boolean(item.unlockAt && daysLeft > 0) };
+  });
+
+  const openableCount = items.filter((i) => !i.isLocked).length;
+  const openedCount = Object.keys(openedIds).length;
+
+  const handleEnvelopeTap = (item, index) => {
+    if (item.isLocked) {
       setShakeId(index);
+      setShowLockedNotice(true);
       setTimeout(() => setShakeId(null), 600);
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+      noticeTimer.current = setTimeout(() => setShowLockedNotice(false), 3200);
       return;
     }
 
@@ -49,27 +54,13 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
     setSelectedItem({ ...item, index });
   };
 
-  const handleScrollToFinale = () => {
-    const nextSection = document.getElementById("finale");
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleTrackScroll = (e) => {
-    const el = e.currentTarget;
-    const cardWidth = 286; // Card width + gap
-    const index = Math.round(el.scrollLeft / cardWidth);
-    setActiveCardIndex(Math.min(Math.max(0, index), openWhenData.length - 1));
-  };
-
   return (
     <section
       id="open-when"
-      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-12 flex flex-col justify-between items-center select-none border-b border-blush/30 overflow-hidden"
+      className="relative w-full min-h-[100dvh] px-4 sm:px-6 pt-16 pb-10 select-none border-b border-blush/30 flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Chapter Marker Header */}
-      <div className="w-full flex flex-col items-center text-center mt-2">
+      {/* Chapter header */}
+      <div className="w-full flex flex-col items-center text-center mb-6">
         <span className="font-typewriter text-[10px] tracking-[0.3em] uppercase text-gold/80 mb-1">
           {metaData.chapterTag || "Chapter 09 • Open When"}
         </span>
@@ -77,142 +68,172 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
           {metaData.title || "Letters for Later"}
         </h2>
         <p className="font-handwriting text-lg text-rose mt-1 max-w-[320px]">
-          {metaData.subtitle || "Swipe through and open whenever you need me"}
+          {metaData.subtitle || "Open whenever you need me"}
         </p>
 
-        <span className="font-typewriter text-[9px] text-gold/80 tracking-[0.25em] uppercase mt-2">
-          {metaData.swipeCue || "← Swipe across envelopes →"}
-        </span>
+        <div className="mt-3 inline-flex items-center rounded-full px-4 py-1 border border-gold/30 bg-[#EFE3CF]/90">
+          <span className="font-typewriter text-xs text-burgundy tracking-widest uppercase">
+            Opened {openedCount} / {openableCount}
+          </span>
+        </div>
       </div>
 
-      {/* Main Envelope Carousel Stage */}
-      <div className="w-full max-w-[390px] flex flex-col items-center my-auto">
-        <div
-          onScroll={handleTrackScroll}
-          className="w-full flex gap-4 overflow-x-auto snap-x snap-mandatory py-4 px-6 no-scrollbar"
-        >
-          {openWhenData.map((item, index) => {
-            const daysLeft = item.unlockAt ? computeDaysRemainingManila(item.unlockAt) : 0;
-            const isLocked = Boolean(item.unlockAt && daysLeft > 0);
-            const isOpened = Boolean(openedIds[index]);
-            const isShaking = shakeId === index;
+      {/* Envelope list: everything visible, no sideways swiping */}
+      <div className="w-full max-w-[380px] flex flex-col gap-3">
+        {items.map((item, index) => {
+          const isOpened = Boolean(openedIds[index]);
+          const isShaking = shakeId === index;
 
-            const countdownString =
-              daysLeft === 1
-                ? metaData.countdownSingular || "Opens in 1 day"
-                : (metaData.countdownText || "Opens in {days} days").replace("{days}", daysLeft);
+          const countdownString =
+            item.daysLeft === 1
+              ? metaData.countdownSingular || "Opens in 1 day"
+              : (metaData.countdownText || "Opens in {days} days").replace(
+                  "{days}",
+                  item.daysLeft
+                );
 
-            return (
-              <motion.div
-                key={`open-when-${index}`}
-                onClick={() => handleEnvelopeTap(item, index, isLocked)}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-                animate={
-                  isShaking && !shouldReduceMotion
-                    ? { x: [-6, 6, -4, 4, -2, 2, 0] }
-                    : {}
-                }
-                transition={{ duration: 0.5 }}
-                className="flex-shrink-0 w-[270px] sm:w-[280px] snap-center cursor-pointer touch-manipulation"
+          return (
+            <motion.button
+              key={`open-when-${index}`}
+              type="button"
+              onClick={() => handleEnvelopeTap(item, index)}
+              aria-label={
+                item.isLocked
+                  ? `Letter ${index + 1}, locked. ${countdownString}`
+                  : `Letter ${index + 1}: ${item.label}`
+              }
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.4 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              style={{ x: 0 }}
+              {...(isShaking && !shouldReduceMotion
+                ? { animate: { x: [-6, 6, -4, 4, -2, 2, 0], opacity: 1, y: 0 } }
+                : {})}
+              className={`relative w-full text-left rounded-xl border overflow-hidden cursor-pointer touch-manipulation shadow-[0_6px_18px_rgba(43,18,51,0.07)] ${
+                item.isLocked
+                  ? "bg-[#E6DAC3] border-[#CBB998]"
+                  : isOpened
+                  ? "bg-[#FAF6EE] border-gold/60"
+                  : "bg-[#EFE4D0] border-gold/45"
+              }`}
+            >
+              {/* Envelope flap lines across the card */}
+              <svg
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
               >
-                {/* Physical Envelope Card */}
+                <path
+                  d="M0 0 L50 62 L100 0"
+                  fill="none"
+                  stroke="rgba(201,162,75,0.35)"
+                  strokeWidth="0.8"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              <div className="relative z-10 flex items-center gap-3.5 px-4 py-4">
+                {/* Wax seal */}
                 <div
-                  className={`relative w-full h-[185px] rounded-xl shadow-[0_8px_25px_rgba(43,18,51,0.08)] border transition-all flex flex-col justify-between p-4 overflow-hidden ${
-                    isLocked
-                      ? "bg-[#E6DAC3] border-[#CBB998]"
-                      : "bg-[#EFE4D0] hover:bg-[#F3E8D5] border-gold/45"
+                  className={`shrink-0 w-12 h-12 rounded-full border-2 flex items-center justify-center shadow-md ${
+                    item.isLocked
+                      ? "bg-burgundy/80 border-gold/60 text-gold text-base"
+                      : "bg-gradient-to-br from-[#5E1A2F] via-burgundy to-[#300B17] border-gold/80 text-gold font-serif italic font-bold text-[11px]"
                   }`}
                 >
-                  {/* Natural Top Triangular Flap */}
-                  <div
-                    className="absolute top-0 left-0 w-full h-[65px] bg-[#E4D5BC] border-b border-black/5 filter drop-shadow-[0_2px_4px_rgba(43,18,51,0.08)] pointer-events-none"
-                    style={{
-                      clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                    }}
-                  />
-
-                  {/* Centered Wax Seal at the point of the flap */}
-                  <div className="absolute top-[65px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                    {isLocked ? (
-                      <div className="w-8 h-8 rounded-full bg-burgundy/85 border border-gold/80 flex items-center justify-center text-gold text-xs shadow-md">
-                        🔒
-                      </div>
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#5E1A2F] via-burgundy to-[#300B17] border-2 border-gold/80 flex items-center justify-center text-gold text-[9px] font-serif italic font-bold shadow-md">
-                        {metaData.sealInitials || "M&J"}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Envelope Header: Badge & Status */}
-                  <div className="relative z-10 flex items-center justify-between w-full">
-                    <span className="font-typewriter text-[9px] text-burgundy/60 uppercase tracking-widest bg-cream/70 px-2 py-0.5 rounded-full border border-gold/30">
-                      NO. 0{index + 1}
-                    </span>
-
-                    {isOpened ? (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="inline-flex items-center gap-1 bg-[#FAF6EE] text-burgundy border border-gold/50 rounded-full px-2 py-0.5 shadow-xs"
-                      >
-                        <span className="text-[10px] text-rose font-bold">✓</span>
-                        <span className="font-typewriter text-[8px] uppercase tracking-wider text-burgundy/80">
-                          {metaData.openedBadge || "Opened"}
-                        </span>
-                      </motion.div>
-                    ) : isLocked ? (
-                      <span className="text-xs bg-burgundy/10 px-2 py-0.5 rounded-full border border-burgundy/20 font-typewriter text-[8px] text-burgundy/70 uppercase">
-                        Locked
-                      </span>
-                    ) : (
-                      <span className="font-typewriter text-[8px] uppercase tracking-widest text-gold/80">
-                        sealed
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Envelope Prompt Label */}
-                  <div className="relative z-10 my-auto text-center px-2 pt-6">
-                    <h3 className="font-serif text-[19px] sm:text-[20px] text-burgundy font-normal leading-snug tracking-wide">
-                      "{item.label}"
-                    </h3>
-                  </div>
-
-                  {/* Bottom Row: Interaction Hint or Locked Countdown */}
-                  <div className="relative z-10 flex items-center justify-center w-full pt-2 border-t border-gold/25">
-                    {isLocked ? (
-                      <span className="font-typewriter text-[10px] text-burgundy/85 font-semibold tracking-wider">
-                        {countdownString}
-                      </span>
-                    ) : (
-                      <span className="font-handwriting text-rose text-base hover:text-burgundy transition-colors">
-                        {isOpened ? "read again" : "tap to open"}
-                      </span>
-                    )}
-                  </div>
+                  {item.isLocked ? "🔒" : metaData.sealInitials || "M&J"}
                 </div>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {/* Carousel Indicator Dots */}
-        <div className="flex items-center justify-center gap-1.5 mt-3">
-          {openWhenData.map((_, dotIdx) => (
-            <span
-              key={`dot-${dotIdx}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeCardIndex === dotIdx
-                  ? "w-4 bg-gold shadow-xs"
-                  : "w-1.5 bg-gold/30"
-              }`}
-            />
-          ))}
-        </div>
+                {/* Label */}
+                <div className="flex-1 min-w-0">
+                  <span className="font-typewriter text-[9px] tracking-[0.2em] uppercase text-burgundy/55">
+                    Letter {index + 1}
+                  </span>
+                  <h3 className="font-serif text-[18px] text-burgundy font-normal leading-snug">
+                    {item.label}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Status strip */}
+              <div
+                className={`relative z-10 flex items-center justify-between px-4 py-2 border-t ${
+                  item.isLocked ? "border-[#CBB998] bg-black/[0.03]" : "border-gold/25"
+                }`}
+              >
+                {item.isLocked ? (
+                  <>
+                    <span className="font-typewriter text-[10px] tracking-wider text-burgundy/80">
+                      {countdownString}
+                    </span>
+                    <span className="font-typewriter text-[9px] uppercase tracking-widest text-burgundy/60">
+                      Locked
+                    </span>
+                  </>
+                ) : isOpened ? (
+                  <>
+                    <span className="font-handwriting text-base text-rose">read again</span>
+                    <span className="font-typewriter text-[9px] uppercase tracking-widest text-burgundy/70">
+                      ✓ {metaData.openedBadge || "Opened"}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-handwriting text-base text-rose">tap to open</span>
+                    <span className="font-typewriter text-[9px] uppercase tracking-widest text-gold">
+                      Sealed
+                    </span>
+                  </>
+                )}
+              </div>
+            </motion.button>
+          );
+        })}
       </div>
 
-      {/* Unfolded Note Modal Popup */}
+      {/* Locked-letter message (space is reserved so nothing jumps) */}
+      <div className="h-8 mt-3 flex items-center justify-center text-center">
+        <AnimatePresence>
+          {showLockedNotice && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="font-handwriting text-lg text-rose"
+            >
+              {metaData.lockedNotice || "Locked for now. Be patient, Loveyyy..."}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Next chapter */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          scrollToSection("finale");
+        }}
+        className="relative z-30 mt-4 flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
+      >
+        <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
+          {metaData.continueCue || "to our finale"}
+        </span>
+        <svg
+          className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* Unfolded note popup */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div
@@ -220,7 +241,7 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedItem(null)}
-            className="fixed inset-0 z-50 bg-[#2B1233]/60 backdrop-blur-xs flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-[#2B1233]/60 backdrop-blur-sm flex items-center justify-center p-4"
           >
             <motion.div
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9, y: 20 }}
@@ -228,13 +249,13 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: 15 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-[340px] bg-[#FAF6EE] rounded-xl p-6 shadow-2xl border border-gold/40 text-center"
+              className="relative w-full max-w-[340px] max-h-[85dvh] overflow-y-auto bg-[#FAF6EE] rounded-xl p-6 shadow-2xl border border-gold/40 text-center"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(to bottom, transparent, transparent 27px, rgba(201, 120, 138, 0.12) 27px, rgba(201, 120, 138, 0.12) 28px)",
               }}
             >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#EADFCA]/90 shadow-xs border-l border-r border-black/5 rotate-[-1.5deg] pointer-events-none" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#EADFCA]/90 border-l border-r border-black/5 rotate-[-1.5deg] pointer-events-none" />
 
               <span className="font-typewriter text-[9px] text-gold uppercase tracking-widest block mb-1">
                 {selectedItem.label}
@@ -261,28 +282,6 @@ export default function OpenWhenChapter({ openWhenData = [], metaData = {} }) {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Gentle Scroll Indicator to Finale Chapter (Raised with comfortable spacing) */}
-      <div className="w-full flex flex-col items-center text-center pb-2">
-        <button
-          type="button"
-          onClick={handleScrollToFinale}
-          className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
-        >
-          <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">
-            {metaData.continueCue || "to our finale"}
-          </span>
-          <svg
-            className="w-4 h-4 mt-1 group-hover:translate-y-0.5 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      </div>
     </section>
   );
 }

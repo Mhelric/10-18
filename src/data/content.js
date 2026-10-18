@@ -57,8 +57,8 @@ export const wall = [
 ];
 
 export const song = {
-  title: "Palagi",
-  subtitle: "Our Theme Song",
+  title: "Harana for you",
+  subtitle: "Songs that reminds me of you",
   audio: "/audio/our-song.mp3",
   youtubeId: "hJVt_uPjCYI",
   poster: "/photos/harana-poster.webp",

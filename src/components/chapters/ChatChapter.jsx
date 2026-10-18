@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function ChatChapter({ chatData }) {
   const shouldReduceMotion = useReducedMotion();
@@ -215,10 +216,7 @@ export default function ChatChapter({ chatData }) {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  const memoriesSection = document.getElementById("memories");
-                  if (memoriesSection) {
-                    memoriesSection.scrollIntoView({ behavior: "smooth" });
-                  }
+                  scrollToSection("memories");
                 }}
                 className="mt-5 flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
               >

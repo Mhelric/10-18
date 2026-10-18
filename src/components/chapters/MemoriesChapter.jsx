@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 // Deterministic rotation angles per item so tilt stays stable on re-renders
 const TILT_ANGLES = [-1.8, 2.0, -1.5, 1.7, -2.2, 1.4, -1.6, 2.1, -1.9, 1.5, -2.0, 1.8];
@@ -290,10 +291,7 @@ export default function MemoriesChapter({ timelineData, metaData }) {
       <div className="w-full flex flex-col items-center text-center mt-16 pb-safe">
         <button
           type="button"
-          onClick={() => {
-            const next = document.getElementById("wall");
-            if (next) next.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={() => scrollToSection("wall")}
           className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
         >
           <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">

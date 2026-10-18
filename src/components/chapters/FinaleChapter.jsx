@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function FinaleChapter({ finaleData = {}, onReset }) {
   const shouldReduceMotion = useReducedMotion();
@@ -119,17 +120,7 @@ export default function FinaleChapter({ finaleData = {}, onReset }) {
   }, [isInView, shouldReduceMotion]);
 
   // Direct smooth scroll to Chapter 1: The Beginning (#prologue)
-  const handleReadAgain = () => {
-    if (onReset) {
-      onReset();
-    }
-    const prologueSection = document.getElementById("prologue");
-    if (prologueSection) {
-      prologueSection.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
+  const handleReadAgain = () => scrollToSection("prologue", { instant: true });
 
   return (
     <section

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function PrologueChapter({ data, prologueData }) {
   const config = prologueData || data;
@@ -262,12 +263,7 @@ export default function PrologueChapter({ data, prologueData }) {
           ease: "easeInOut",
         }}
         className="relative z-10 flex flex-col items-center pb-safe pt-4 cursor-pointer"
-        onClick={() => {
-          const chatSection = document.getElementById("chat");
-          if (chatSection) {
-            chatSection.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
+        onClick={() => scrollToSection("chat")}
       >
         <span className="font-typewriter text-[10px] uppercase tracking-[0.25em] text-gold/80">
           {config?.scrollCue || "scroll"}

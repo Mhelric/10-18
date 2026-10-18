@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function ReasonsChapter({
   reasonsData = [],
@@ -273,10 +274,7 @@ export default function ReasonsChapter({
       <div className="w-full flex flex-col items-center text-center pt-6 pb-safe">
         <button
           type="button"
-          onClick={() => {
-            const next = document.getElementById("letter");
-            if (next) next.scrollIntoView({ behavior: "smooth" });
-          }}
+          onClick={() => scrollToSection("letter")}
           className="flex flex-col items-center text-gold hover:text-gold/80 transition-colors cursor-pointer group"
         >
           <span className="font-typewriter text-[10px] uppercase tracking-[0.25em]">

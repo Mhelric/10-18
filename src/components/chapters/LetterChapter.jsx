@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function LetterChapter({ letterData, onVoicePlay, onVoicePause }) {
   const shouldReduceMotion = useReducedMotion();
@@ -45,12 +46,7 @@ export default function LetterChapter({ letterData, onVoicePlay, onVoicePause })
     if (onVoicePause) onVoicePause();
   };
 
-  const handleScrollToOpenWhen = () => {
-    const nextSection = document.getElementById("open-when");
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    const handleScrollToOpenWhen = () => scrollToSection("open-when");
 
   return (
     <section

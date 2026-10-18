@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 // Gentle organic tilt angles for each card in the grid
 const ROTATIONS = [-2.5, 1.5, -1.8, 2.2, -1.2, 2.8, -2.0, 1.2];
@@ -159,18 +160,8 @@ export default function WallChapter({ wallData, metaData }) {
         <button
           type="button"
           onClick={(e) => {
-            e.preventDefault();
             e.stopPropagation();
-            const target = document.getElementById("song");
-            if (target) {
-              const targetY = target.getBoundingClientRect().top + window.pageYOffset;
-              window.scrollTo({ top: targetY, behavior: "smooth" });
-              try {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-              } catch (_) {
-                target.scrollIntoView(true);
-              }
-            }
+            scrollToSection("song");
           }}
           className="flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
         >

@@ -1,30 +1,32 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function JokesChapter({ jokesData, metaData }) {
   const items = jokesData || [];
   const shouldReduceMotion = useReducedMotion();
 
   const [collectedIds, setCollectedIds] = useState({});
-  const [activeId, setActiveId] = useState(null);
 
   const handleCardClick = (index) => {
-    setActiveId(index);
-    setCollectedIds((prev) => ({
-      ...prev,
-      [index]: true,
-    }));
+    setCollectedIds((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
   };
 
   const collectedCount = Object.keys(collectedIds).length;
-  const allCollected = collectedCount === items.length;
+  const allCollected = items.length > 0 && collectedCount === items.length;
+  const progress = items.length ? (collectedCount / items.length) * 100 : 0;
+
+  const faceStyle = {
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+  };
 
   return (
     <section
       id="jokes"
-      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-16 select-none border-b border-blush/30 flex flex-col justify-between items-center"
+      className="relative w-full min-h-[100dvh] px-4 sm:px-6 pt-16 pb-10 select-none border-b border-blush/30 flex flex-col items-center justify-center"
     >
-      {/* Chapter Marker Header */}
+      {/* Chapter header */}
       <div className="w-full flex flex-col items-center text-center mb-6">
         <span className="font-typewriter text-[10px] tracking-[0.3em] uppercase text-gold/80 mb-1">
           {metaData?.chapterTag || "Chapter 06 • Inside Jokes"}
@@ -32,137 +34,122 @@ export default function JokesChapter({ jokesData, metaData }) {
         <h2 className="font-serif text-3xl sm:text-4xl text-burgundy font-normal">
           {metaData?.title || "Things Only We Know"}
         </h2>
-        <p className="font-handwriting text-lg text-rose mt-1">
-          {metaData?.subtitle || "Tap to collect our secret memories"}
+
+        {/* Subtitle swaps to the completion message in place (no layout jump) */}
+        <p className="font-handwriting text-lg text-rose mt-1 min-h-[1.75rem]">
+          {allCollected
+            ? metaData?.completionMessage || "You found them all. Of course you did."
+            : metaData?.subtitle || "Tap to collect our secret memories"}
         </p>
 
-        {/* Live Counter in Special Elite */}
-        <div className="mt-3 inline-block bg-[#EFE3CF]/90 border border-gold/30 rounded-full px-4 py-1 shadow-xs">
-          <span className="font-typewriter text-xs text-burgundy tracking-widest uppercase">
-            Collected {collectedCount} / {items.length}
-          </span>
+        {/* Counter + progress */}
+        <div className="mt-3 flex flex-col items-center gap-2">
+          <div
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-1 border transition-colors duration-500 ${
+              allCollected
+                ? "bg-gold/20 border-gold/60 shadow-[0_0_18px_rgba(201,162,75,0.35)]"
+                : "bg-[#EFE3CF]/90 border-gold/30"
+            }`}
+          >
+            <span className="font-typewriter text-xs text-burgundy tracking-widest uppercase">
+              {metaData?.counterLabel || "Collected"} {collectedCount} / {items.length}
+            </span>
+            {allCollected && <span className="text-rose text-xs">♥</span>}
+          </div>
+          <div className="w-28 h-1 rounded-full bg-gold/20 overflow-hidden">
+            <motion.div
+              className="h-full bg-gold"
+              initial={false}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Swipeable / Scrollable Card Stack or Grid */}
-        {/* Change the card list container to use no-scrollbar */}
-        <div className="w-full max-w-[365px] mx-auto my-auto grid grid-cols-1 gap-3.5 py-2 overflow-y-auto max-h-[56vh] px-1 no-scrollbar">
+      {/* Two-column flip-card grid. Everything is visible, no inner scrolling. */}
+      <div className="w-full max-w-[380px] grid grid-cols-2 gap-3">
         {items.map((item, index) => {
           const isCollected = Boolean(collectedIds[index]);
-          const isActive = activeId === index;
 
           return (
-            <motion.div
+            <motion.button
               key={`joke-${index}`}
+              type="button"
               onClick={() => handleCardClick(index)}
-              style={{ zIndex: isActive ? 30 : 10 }}
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 15 }}
+              aria-label={
+                isCollected ? `${item.title}. ${item.text}` : `Secret memory ${index + 1}, tap to flip`
+              }
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.4, delay: index * 0.03 }}
-              className="cursor-pointer touch-manipulation"
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.4, delay: (index % 2) * 0.05 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+              className="relative h-[172px] text-left cursor-pointer touch-manipulation"
+              style={{ perspective: "900px" }}
             >
-              <div
-                className={`relative w-full min-h-[85px] rounded-lg p-4 border transition-all shadow-sm flex items-center justify-between ${
-                  isCollected
-                    ? "bg-[#FAF6EE] border-gold/60 shadow-[0_4px_16px_rgba(201,162,75,0.2)]"
-                    : "bg-[#EFE4D0] border-gold/40 hover:bg-[#F2E8D5]"
-                }`}
+              <motion.div
+                className="relative w-full h-full"
+                style={{ transformStyle: "preserve-3d" }}
+                animate={{ rotateY: isCollected ? 180 : 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: "easeInOut" }}
               >
-                {/* 3D Flip Container */}
-                <div className="w-full relative" style={{ perspective: "1000px" }}>
-                  <motion.div
-                    className="w-full relative preserve-3d"
-                    animate={{ rotateX: isCollected ? 0 : 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    {!isCollected ? (
-                      /* Face-down State */
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-3">
-                          <span className="text-xl">🎴</span>
-                          <span className="font-typewriter text-xs text-burgundy/70 tracking-widest uppercase">
-                            Secret Memory #{index + 1}
-                          </span>
-                        </div>
-                        <span className="font-handwriting text-rose text-sm">Tap to flip</span>
-                      </div>
-                    ) : (
-                      /* Face-up Collected State */
-                      <div className="flex items-start gap-3 w-full">
-                        <span className="text-2xl mt-0.5">{item.icon}</span>
-                        <div className="flex flex-col text-left">
-                          <h3 className="font-serif text-lg text-burgundy font-normal leading-tight">
-                            {item.title}
-                          </h3>
-                          <p className="font-body text-xs text-burgundy/85 mt-1 leading-relaxed">
-                            {item.text}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </motion.div>
+                {/* Front: face-down card */}
+                <div
+                  style={faceStyle}
+                  className="absolute inset-0 rounded-xl border border-gold/50 bg-[#EFE4D0] shadow-sm flex flex-col items-center justify-center gap-2 p-3"
+                >
+                  <div className="absolute inset-1.5 rounded-lg border border-dashed border-gold/40 pointer-events-none" />
+                  <span className="font-serif text-4xl text-gold/70 leading-none">
+                    {index + 1}
+                  </span>
+                  <span className="font-typewriter text-[10px] tracking-[0.2em] uppercase text-burgundy/60">
+                    Secret memory
+                  </span>
+                  <span className="font-handwriting text-rose text-base">tap to flip</span>
                 </div>
-              </div>
-            </motion.div>
+
+                {/* Back: revealed joke */}
+                <div
+                  style={{ ...faceStyle, transform: "rotateY(180deg)" }}
+                  className="absolute inset-0 rounded-xl border border-gold/60 bg-[#FAF6EE] shadow-[0_4px_16px_rgba(201,162,75,0.25)] flex flex-col items-start justify-start gap-1.5 p-3.5 overflow-hidden"
+                >
+                  <span className="text-2xl leading-none">{item.icon}</span>
+                  <h3 className="font-serif text-[17px] text-burgundy font-normal leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-[11.5px] text-burgundy/85 leading-snug">
+                    {item.text}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.button>
           );
         })}
       </div>
 
-      {/* Completion Message with Soft Glow */}
-      <div className="w-full flex flex-col items-center min-h-[50px] justify-center pt-2">
-        {allCollected && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="px-4 py-2 rounded-xl bg-gold/15 border border-gold/40 shadow-[0_0_20px_rgba(201,162,75,0.35)] text-center"
-          >
-            <p className="font-handwriting text-xl text-burgundy tracking-wide">
-              {metaData?.completionMessage || "You found them all. Of course you did."}
-            </p>
-          </motion.div>
-        )}
-      </div>
-
-     {/* Gentle Scroll Indicator to Reasons Chapter */}
-      <div className="relative z-30 w-full flex flex-col items-center text-center pt-8 pb-safe touch-manipulation">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const target =
-              document.getElementById("reasons") ||
-              document.getElementById("reason") ||
-              document.getElementById("letter");
-            if (target) {
-              const targetY = target.getBoundingClientRect().top + window.pageYOffset;
-              window.scrollTo({ top: targetY, behavior: "smooth" });
-              try {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-              } catch (_) {
-                target.scrollIntoView(true);
-              }
-            }
-          }}
-          className="flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
+      {/* Next chapter: sits right under the cards now */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          scrollToSection("reasons");
+        }}
+        className="relative z-30 mt-10 flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
+      >
+        <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
+          {metaData?.continueCue || "to the reasons jar"}
+        </span>
+        <svg
+          className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          viewBox="0 0 24 24"
         >
-          <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
-            to the reasons jar
-          </span>
-          <svg
-            className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      </div>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
     </section>
   );
 }

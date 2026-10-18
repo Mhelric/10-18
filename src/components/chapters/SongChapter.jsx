@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { scrollToSection } from "../../utils/scrollToSection";
 
 export default function SongChapter({ songData, metaData, onVideoPlay, onVideoPause }) {
   const shouldReduceMotion = useReducedMotion();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [posterError, setPosterError] = useState(false);
   const playerRef = useRef(null);
 
   const youtubeId = songData?.youtubeId || "hJVt_uPjCYI";
   const youtubeUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
 
-  // Use songData.poster; fallback to YouTube HQ thumbnail if poster is not found
   const posterSrc =
     !posterError && songData?.poster
       ? songData.poster
@@ -40,8 +41,10 @@ export default function SongChapter({ songData, metaData, onVideoPlay, onVideoPa
           },
           onStateChange: (event) => {
             if (event.data === 1) {
+              setIsPlaying(true);
               if (onVideoPlay) onVideoPlay();
             } else if (event.data === 2 || event.data === 0) {
+              setIsPlaying(false);
               if (onVideoPause) onVideoPause();
             }
           },
@@ -80,145 +83,174 @@ export default function SongChapter({ songData, metaData, onVideoPlay, onVideoPa
     };
   }, []);
 
+  const eqHeights = [
+    [6, 16, 8, 14, 6],
+    [14, 6, 16, 8, 14],
+    [8, 14, 6, 16, 8],
+    [16, 8, 14, 6, 16],
+  ];
+
   return (
     <section
       id="song"
-      className="relative min-h-[100dvh] w-full px-4 sm:px-6 py-16 select-none border-b border-blush/30 flex flex-col justify-between items-center overflow-hidden"
+      className="relative w-full min-h-[100dvh] px-4 sm:px-6 pt-16 pb-10 select-none border-b border-blush/30 flex flex-col items-center justify-center gap-7 overflow-hidden"
     >
-      {/* Chapter Marker Header */}
-      <div className="w-full flex flex-col items-center text-center mb-6">
+      {/* Soft glow behind the frame */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full bg-gold/15 blur-3xl"
+      />
+
+      {/* Chapter header */}
+      <div className="relative w-full flex flex-col items-center text-center">
         <span className="font-typewriter text-[10px] tracking-[0.3em] uppercase text-gold/80 mb-1">
           {metaData?.chapterTag || "Chapter 05 • Harana"}
         </span>
         <h2 className="font-serif text-3xl sm:text-4xl text-burgundy font-normal">
-          {metaData?.title || songData?.title || "A Melody for Loveyyy"}
+          {metaData?.title || "A Melody for Loveyyy"}
         </h2>
         <p className="font-handwriting text-lg text-rose mt-1">
           {metaData?.subtitle || "Turn up your volume and press play"}
         </p>
       </div>
 
-      {/* Film-Strip Frame Container */}
-      <div className="relative w-full max-w-[340px] sm:max-w-[360px] my-auto flex flex-col items-center">
-        {/* Outer Dark Film Casing */}
-        <div className="w-full bg-[#1A0E1D] rounded-lg p-3 sm:p-3.5 shadow-[0_12px_36px_rgba(43,18,51,0.35)] border border-gold/30">
-          
-          {/* Top Sprocket Perforations */}
+      {/* Film-strip frame */}
+      <div className="relative w-full max-w-[340px] sm:max-w-[360px] flex flex-col items-center">
+        <div className="w-full bg-[#1A0E1D] rounded-lg p-3 sm:p-3.5 shadow-[0_14px_40px_rgba(43,18,51,0.38)] border border-gold/30">
           <div className="flex justify-between items-center px-1 pb-2.5">
             {Array.from({ length: 7 }).map((_, i) => (
               <span
                 key={`sprocket-top-${i}`}
-                className="w-4 h-2.5 bg-[#FAF6EE]/20 rounded-xs border border-black/30"
+                className="w-4 h-2.5 bg-[#FAF6EE]/20 rounded-sm border border-black/30"
               />
             ))}
           </div>
 
-          {/* 16:9 Screen Viewport */}
           <div className="relative w-full aspect-video bg-[#0E0610] overflow-hidden rounded-[2px] shadow-inner">
             {!isLoaded ? (
-              /* Facade: Clickable poster */
-              <div
+              <button
+                type="button"
                 onClick={handleStartPlay}
-                className="relative w-full h-full cursor-pointer group block overflow-hidden"
+                aria-label={`Play ${songData?.title || "our song"}`}
+                className="relative w-full h-full cursor-pointer group block overflow-hidden touch-manipulation"
               >
-                {/* Poster / Thumbnail image */}
                 <img
                   src={posterSrc}
                   alt={songData?.title || "Harana"}
                   onError={() => setPosterError(true)}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter brightness-[0.88]"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter brightness-[0.9]"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
 
-                {/* Ambient vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-
-                {/* Upper Left Play Button */}
-                <div className="absolute top-3 left-3 pointer-events-none z-10">
-                  <motion.div
-                    animate={
-                      shouldReduceMotion
-                        ? {}
-                        : { scale: [1, 1.06, 1] }
-                    }
+                {/* Play pill sits bottom-left so it never covers your face */}
+                <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2.5 pr-3.5 rounded-full bg-burgundy/90 border border-gold/80 shadow-[0_4px_16px_rgba(201,162,75,0.4)]">
+                  <motion.span
+                    animate={shouldReduceMotion ? {} : { scale: [1, 1.08, 1] }}
                     transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-12 h-12 rounded-full bg-burgundy/90 border-2 border-gold/90 flex items-center justify-center text-gold shadow-[0_4px_16px_rgba(201,162,75,0.45)] group-hover:scale-105 transition-transform"
+                    className="w-10 h-10 rounded-full bg-gold text-burgundy flex items-center justify-center"
                   >
-                    <svg
-                      className="w-5 h-5 ml-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                  </motion.div>
+                  </motion.span>
+                  <span className="font-typewriter text-[11px] tracking-widest text-cream uppercase">
+                    Play
+                  </span>
                 </div>
-              </div>
+              </button>
             ) : (
-              /* YouTube IFrame Mount */
               <div id="youtube-player-frame" className="w-full h-full" />
             )}
           </div>
 
-          {/* Bottom Sprocket Perforations */}
           <div className="flex justify-between items-center px-1 pt-2.5">
             {Array.from({ length: 7 }).map((_, i) => (
               <span
                 key={`sprocket-bot-${i}`}
-                className="w-4 h-2.5 bg-[#FAF6EE]/20 rounded-xs border border-black/30"
+                className="w-4 h-2.5 bg-[#FAF6EE]/20 rounded-sm border border-black/30"
               />
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Fallback YouTube External Link */}
-        <div className="mt-3 text-center">
-          <a
-            href={youtubeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-typewriter text-[11px] text-gold/80 hover:text-gold transition-colors underline decoration-gold/40 underline-offset-4"
-          >
-            <span>{metaData?.watchOnYoutubeText || "Watch on YouTube"}</span>
-            <span className="text-[10px]">↗</span>
-          </a>
+      {/* Now-playing card: vinyl + song title + equalizer */}
+      <div className="relative w-full max-w-[340px] sm:max-w-[360px] flex items-center gap-4 rounded-2xl border border-gold/40 bg-cream/70 backdrop-blur-sm px-4 py-3 shadow-[0_6px_20px_rgba(74,20,36,0.08)]">
+        {/* Vinyl record */}
+        <div className="relative shrink-0 w-14 h-14">
+          <div
+            className="w-full h-full rounded-full animate-spin shadow-md"
+            style={{
+              animationDuration: "6s",
+              animationPlayState: isPlaying ? "running" : "paused",
+              background:
+                "radial-gradient(circle at center, #C9A24B 0 13%, #4A1424 14% 24%, transparent 25%), repeating-radial-gradient(circle at center, #1A0E1D 0 2px, #2B1233 2px 3px)",
+            }}
+          />
+          <span className="absolute inset-0 m-auto w-1.5 h-1.5 rounded-full bg-cream" />
+        </div>
+
+        <div className="flex-1 min-w-0 text-left">
+          <p className="font-serif text-xl text-burgundy leading-tight truncate">
+            {songData?.title || "Palagi"}
+          </p>
+          <p className="font-handwriting text-base text-rose leading-tight">
+            {songData?.subtitle || "Our Theme Song"}
+          </p>
+        </div>
+
+        {/* Equalizer bars: dance only while the video is playing */}
+        <div className="flex items-end gap-[3px] h-5 shrink-0" aria-hidden="true">
+          {eqHeights.map((heights, i) => (
+            <motion.span
+              key={`eq-${i}`}
+              className="w-[3px] rounded-full bg-gold"
+              style={{ height: 6 }}
+              animate={isPlaying && !shouldReduceMotion ? { height: heights } : { height: 6 }}
+              transition={
+                isPlaying && !shouldReduceMotion
+                  ? { duration: 1.1 + i * 0.12, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0.2 }
+              }
+            />
+          ))}
         </div>
       </div>
 
-      {/* Scroll indicator to Chapter 6 (Inside Jokes) */}
-      <div className="relative z-30 w-full flex flex-col items-center text-center pt-8 pb-safe touch-manipulation">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const target = document.getElementById("jokes") || document.getElementById("letter");
-            if (target) {
-              const targetY = target.getBoundingClientRect().top + window.pageYOffset;
-              window.scrollTo({ top: targetY, behavior: "smooth" });
-              try {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-              } catch (_) {
-                target.scrollIntoView(true);
-              }
-            }
-          }}
-          className="flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
+      {/* External fallback */}
+      <a
+        href={youtubeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="-mt-3 inline-flex items-center gap-1 font-typewriter text-[11px] text-gold/80 hover:text-gold transition-colors underline decoration-gold/40 underline-offset-4"
+      >
+        <span>{metaData?.watchOnYoutubeText || "Watch on YouTube"}</span>
+        <span className="text-[10px]">↗</span>
+      </a>
+
+      {/* Next chapter */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          scrollToSection("jokes");
+        }}
+        className="relative z-30 flex flex-col items-center text-gold hover:text-gold/80 active:scale-95 transition-transform cursor-pointer group py-3 px-6 touch-manipulation"
+      >
+        <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
+          {metaData?.continueCue || "to our inside jokes"}
+        </span>
+        <svg
+          className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          viewBox="0 0 24 24"
         >
-          <span className="font-typewriter text-[11px] uppercase tracking-[0.25em]">
-            {metaData?.continueCue || "to our inside jokes"}
-          </span>
-          <svg
-            className="w-4 h-4 mt-1.5 group-hover:translate-y-0.5 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      </div>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
     </section>
   );
 }

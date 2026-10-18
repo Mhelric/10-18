@@ -68,7 +68,11 @@ export default function App() {
       }`}
     >
       <BackgroundAmbience />
-      <MusicPlayer ref={musicPlayerRef} audioSrc={content.meta.audioTrack} />
+      <MusicPlayer
+      ref={musicPlayerRef}
+      audioSrc={content.meta.audioTrack}
+      visible={isUnlocked}
+    />
 
       <main className="relative z-10 mx-auto w-full max-w-[420px] min-h-screen flex flex-col bg-cream/40 shadow-[0_0_50px_rgba(43,18,51,0.04)]">
         <GateChapter
